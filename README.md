@@ -19,3 +19,7 @@ new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatVal
 new DebugMenuAction("Edit/Preferences/Action", () => { Debug.Log("Action"); }, 1);
 new DebugMenu("Edit/Preferences/Extra Preferences", 2);
 ```
+
+![Picture1](Documentation/menu-picture1.png)
+![Picture2](Documentation/menu-picture2.png)
+![Picture3](Documentation/menu-picture3.png)
