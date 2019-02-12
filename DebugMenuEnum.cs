@@ -23,18 +23,23 @@
 // =============================================================================
 
 using System;
+using VARP.Utilities;
 
 namespace VARP.DebugMenus
 {
-    public class DebugMenuAction : DebugMenuItem
+    public class DebugMenuEnum<T> : DebugMenuItem where T : struct, Enum
     {
-        private readonly Action action;
-
-        public DebugMenuAction(string path, Action action, int order = 0)
+        private readonly Func<T> getter;
+        private readonly Action<T> setter;
+        private T defaultValue;
+      
+        public DebugMenuEnum(string path, Func<T> getter, Action<T> setter, int order = 0)
             : base(path, order)
         {
-            this.action = action;
+            this.getter = getter;
+            this.setter = setter;
             this.value = null;    // do not have value, wil display it by color
+            this.defaultValue = this.getter();
         }
         
         public override void OnEvent(DebugMenuC sender, EvenTag tag)
@@ -45,16 +50,22 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Increment:
-                    action();
+                    setter(EnumExtensions.Next(getter()));
+                    Render();
                     break;
                 case EvenTag.Decrement:
+                    setter(EnumExtensions.Previous(getter()));
+                    Render();
                     break;
             }
         }
 
         private void Render()
         {
-            nameColor = action != null ? Tango.WhiteBright : Tango.WhiteDark;
+            var val = getter();
+            value = val.ToString();
+            valueColor = val.Equals(defaultValue) ? Tango.GreenBright : Tango.YellowBright;
         }
+        
     }
 }

@@ -1,5 +1,28 @@
+// =============================================================================
+// MIT License
+// 
+// Copyright (c) 2018 Valeriya Pudova (hww.github.io)
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// =============================================================================
+
 using System;
-using UnityEngine;
 
 namespace VARP.DebugMenus
 {
@@ -9,6 +32,7 @@ namespace VARP.DebugMenus
         private readonly Action<int> setter;
         private readonly string format;
         private readonly int increment;
+        private int defaultValue;
         
         public DebugMenuInteger(string path, Func<int> getter, Action<int> setter, int order = 0,
             int increment = 1, string format = null)
@@ -18,21 +42,22 @@ namespace VARP.DebugMenus
             this.setter = setter;
             this.format = format ?? "0";
             this.increment = increment;
+            this.defaultValue = getter();
             Render();
         }
         
-        public override void OnEvent(DebugMenuC sender, DebugMenu.EvenTag tag)
+        public override void OnEvent(DebugMenuC sender, EvenTag tag)
         {
             switch (tag)
             {
-                case DebugMenu.EvenTag.Render:
+                case EvenTag.Render:
                     Render();
                     break;
-                case DebugMenu.EvenTag.Increment:
+                case EvenTag.Increment:
                     setter(getter() + increment);
                     Render();
                     break;
-                case DebugMenu.EvenTag.Decrement:
+                case EvenTag.Decrement:
                     setter(getter() - increment);
                     Render();
                     break;
@@ -41,7 +66,9 @@ namespace VARP.DebugMenus
 
         private void Render()
         {
-            value = getter().ToString(format);
+            var val = getter();
+            value = val.ToString(format);
+            valueColor = val == defaultValue ? Tango.WhiteBright : Tango.YellowBright;
         }
     }
 }

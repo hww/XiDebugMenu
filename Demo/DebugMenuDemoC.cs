@@ -22,39 +22,35 @@
 // SOFTWARE.
 // =============================================================================
 
-using System;
+using UnityEngine;
 
-namespace VARP.DebugMenus
+namespace VARP.DebugMenus.Demo
 {
-    public class DebugMenuAction : DebugMenuItem
+    public class DebugMenuDemC : MonoBehaviour
     {
-        private readonly Action action;
-
-        public DebugMenuAction(string path, Action action, int order = 0)
-            : base(path, order)
+        public enum TrafficLight
         {
-            this.action = action;
-            this.value = null;    // do not have value, wil display it by color
+            Red,
+            Gree,
+            Blue
         }
+
+        public TrafficLight enumValue;
+        public bool toggleValue;
+        public int integerValue;
+        public float floatValue;
         
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        private void OnEnable()
         {
-            switch (tag)
-            {
-                case EvenTag.Render:
-                    Render();
-                    break;
-                case EvenTag.Increment:
-                    action();
-                    break;
-                case EvenTag.Decrement:
-                    break;
-            }
-        }
 
-        private void Render()
-        {
-            nameColor = action != null ? Tango.WhiteBright : Tango.WhiteDark;
+            new DebugMenu("Edit/Preferences");
+            new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
+            new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 1);
+            new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 1);
+            new DebugMenuAction("Edit/Preferences/Action", () => { Debug.Log("Action"); }, 1);
+            new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
+            new DebugMenu("Edit/Preferences/Extra Preferences", 2);
+
         }
     }
 }
