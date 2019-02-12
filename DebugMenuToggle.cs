@@ -48,11 +48,11 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Increment:
+                case EvenTag.Dec:
                     setter(!getter());
                     Render();
                     break;
-                case EvenTag.Decrement:
+                case EvenTag.Inc:
                     setter(!getter());
                     Render();
                     break;
@@ -66,7 +66,7 @@ namespace VARP.DebugMenus
         private void Render()
         {
             var val = getter();
-            nameColor = val ? (val == defaultValue ? Tango.GreenBright : Tango.YellowDark) : Tango.WhiteBright;
+            labelColor = val ? Colors.ToggleLabelEnabled : Colors.ToggleLabelDisabled;
         }
     }
 }

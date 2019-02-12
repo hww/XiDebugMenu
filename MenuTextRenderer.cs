@@ -71,7 +71,7 @@ namespace VARP.DebugMenus
             string itemFormat2 = $"{{0}}<color={{4}}>{{1,-{debugMenu.widthOfName}}}</color>{SPACE}<color={{5}}>{{2,{debugMenu.widthOfValue}}}</color>{{3}}";
 
             stringBuilder.AppendLine(string.Format( upperLineFormat, justLine));
-            var menuName = string.Format(itemFormat1, PREFIX, debugMenu.name, SUFFIX, debugMenu.nameColor);
+            var menuName = string.Format(itemFormat1, PREFIX, debugMenu.label, SUFFIX, debugMenu.labelColor);
             stringBuilder.AppendLine(string.Format(menuLineFormat, menuName));
             stringBuilder.AppendLine(string.Format(middleLineFormat, justLine));
 
@@ -98,16 +98,16 @@ namespace VARP.DebugMenus
                 string item;
                 if (meniItem is DebugMenu)
                 {
-                    item = string.Format(itemFormat1, prefix, meniItem.name + "...", SUFFIX, meniItem.nameColor);
+                    item = string.Format(itemFormat1, prefix, meniItem.label + "...", SUFFIX, meniItem.labelColor);
                 }
                 else
                 {
-                    if (meniItem.name != null)
+                    if (meniItem.label != null)
                     {
                         if (meniItem.value != null)
-                            item = string.Format(itemFormat2, prefix, meniItem.name, meniItem.value, SUFFIX, meniItem.nameColor, meniItem.valueColor);
+                            item = string.Format(itemFormat2, prefix, meniItem.label, meniItem.value, SUFFIX, meniItem.labelColor, meniItem.valueColor);
                         else
-                            item = string.Format(itemFormat1, prefix, meniItem.name, SUFFIX, meniItem.nameColor);
+                            item = string.Format(itemFormat1, prefix, meniItem.label, SUFFIX, meniItem.labelColor);
                     }
                     else
                     {

@@ -30,41 +30,41 @@ namespace VARP.DebugMenus
         
         public DebugMenu menu;
         public int order;
-        public string name;
+        public readonly string label;
         public string value;
-        public string nameColor;
+        public string labelColor;
         public string valueColor;
      
         public enum EvenTag
         {
-            Null, 
-            Render,
-            Increment, 
-            Decrement, 
-            Previous,
-            Next,
-            Reset,
-            Alternate = 1024
+            Null,               //< Nothing 
+            Render,             //< Render item, update label, value and colors
+            Dec,                //< Decrease value or call action
+            Inc,                //< Increase value or call action
+            Prev,               //< Go to previous item 
+            Next,               //< Go to next item
+            Reset,              //< Reset value to default
+            Shift = 1024        //< Alternate behaviour with shift button
         }
         
         protected DebugMenuItem(string path, int order)
         {
             var pathOnly = DebugMenuTools.GetDirectoryName(path);
-            name = DebugMenuTools.GetFileName(path);
+            label = DebugMenuTools.GetFileName(path);
             menu = DebugMenu.RootDebugMenu.GetOrCreateMenu(pathOnly);
             this.order = order;
-            nameColor = Tango.WhiteBright;
-            valueColor = Tango.WhiteBright;
+            labelColor = Colors.ToggleLabelDisabled;
+            valueColor = Colors.ToggleLabelDisabled;
             menu.AddItem(this);
         }
 
-        protected DebugMenuItem(string name, DebugMenu menu, int order)
+        protected DebugMenuItem(string label, DebugMenu menu, int order)
         {
-            this.name = name;
+            this.label = label;
             this.menu = menu;
             this.order = order;
-            nameColor = Tango.WhiteBright;
-            valueColor = Tango.WhiteBright;
+            labelColor = Colors.ToggleLabelDisabled;
+            valueColor = Colors.ToggleLabelDisabled;
             menu?.AddItem(this);
         }
 
@@ -73,7 +73,7 @@ namespace VARP.DebugMenus
             // override this method to make specific menu item
         }
 
-        public override string ToString() { return $"MenuItem[{name}]"; }
+        public override string ToString() { return $"MenuItem[{label}]"; }
 
 
         // =============================================================================================================

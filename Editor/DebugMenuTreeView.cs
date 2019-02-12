@@ -50,7 +50,7 @@ namespace VARP.DebugMenus
         
         TreeViewItem BuildTree(DebugMenu debugMenu)
         {
-            var bucketTree = new TreeViewItem { id = 0, displayName = $"[{debugMenu.order}] {debugMenu.name}..." };
+            var bucketTree = new TreeViewItem { id = 0, displayName = $"[{debugMenu.order}] {debugMenu.label}..." };
             for (var i = 0; i < debugMenu.Count; i++)
             {
                 var item = debugMenu[i];
@@ -63,7 +63,7 @@ namespace VARP.DebugMenus
                     }
                     else
                     {
-                        var itemTree = new TreeViewItem { id = 0, displayName = $"[{item.order}] '{item.name}'={item.value}" };
+                        var itemTree = new TreeViewItem { id = 0, displayName = $"[{item.order}] '{item.label}'={item.value}" };
                         bucketTree.AddChild(itemTree);
                     }
                 }

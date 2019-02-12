@@ -75,13 +75,13 @@ namespace VARP.DebugMenus
                 DebugMenu.EvenTag evt = DebugMenu.EvenTag.Null; 
 
                 if (Input.GetKeyDown(KeyCode.W))
-                    SendEvent(DebugMenu.EvenTag.Previous);
+                    SendEvent(DebugMenu.EvenTag.Prev);
                 if (Input.GetKeyDown(KeyCode.S))
                     SendEvent(DebugMenu.EvenTag.Next);
                 if (Input.GetKeyDown(KeyCode.A))
-                    SendEvent(DebugMenu.EvenTag.Decrement);
+                    SendEvent(DebugMenu.EvenTag.Inc);
                 if (Input.GetKeyDown(KeyCode.D))
-                    SendEvent(DebugMenu.EvenTag.Increment);
+                    SendEvent(DebugMenu.EvenTag.Dec);
                 if (Input.GetKeyDown(KeyCode.R))
                     SendEvent(DebugMenu.EvenTag.Reset);
             }
@@ -101,7 +101,7 @@ namespace VARP.DebugMenus
             var line = state.line;
             var menuLine = menu[line];
             if (Input.GetKey(KeyCode.LeftShift))
-                tag |= DebugMenu.EvenTag.Alternate;
+                tag |= DebugMenu.EvenTag.Shift;
             menuLine.OnEvent(this, tag);
             Render();
         }

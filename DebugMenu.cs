@@ -37,14 +37,14 @@ namespace VARP.DebugMenus
     {
         public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0, 20);
         
-        public override string ToString() { return $"Menu[{name}]"; }
+        public override string ToString() { return $"Menu[{label}]"; }
 
         public DebugMenu(string path, int order = 0, int capacity = 10) : base(path, order)
         {
             itemsList = new List<DebugMenuItem>(capacity);
         }
         
-        public DebugMenu(string name, DebugMenu menu, int order, int capacity = 10) : base(name, menu, order)
+        public DebugMenu(string label, DebugMenu menu, int order, int capacity = 10) : base(label, menu, order)
         {
             itemsList = new List<DebugMenuItem>(capacity);
         }
@@ -71,7 +71,7 @@ namespace VARP.DebugMenus
             for (var i = 0; i < path.Length; i++)
             {
                 var itemName = path[i];
-                var currentItem = itemsList.Find(item => item.name == itemName);
+                var currentItem = itemsList.Find(item => item.label == itemName);
                 if (currentItem == null)
                     return null;
                 if (i == lastIndex)
@@ -130,7 +130,7 @@ namespace VARP.DebugMenus
             for (var i = 0; i < path.Length; i++)
             {
                 var itemName = path[i];
-                var currentItem = currentMenu.itemsList.Find(item => item.name == itemName);
+                var currentItem = currentMenu.itemsList.Find(item => item.label == itemName);
                 if (currentItem == null)
                 {
                     currentItem = new DebugMenu(itemName, currentMenu, order);
@@ -171,7 +171,7 @@ namespace VARP.DebugMenus
         {
             // do not send message to children, just do only what this instance need
             // update color or text
-            if (tag.HasFlag(EvenTag.Increment))
+            if (tag.HasFlag(EvenTag.Dec))
                 sender.OpenMenu(this);
         }
         
@@ -186,25 +186,25 @@ namespace VARP.DebugMenus
         {
             widthOfName = 0;
             widthOfValue = 0;
-            widthOfNameAnValue = name.Length; // this menu name
+            widthOfNameAnValue = label.Length; // this menu name
             
             for (var i = 0; i < itemsList.Count; i++)
             {
                 var item = itemsList[i];
                 if (item is DebugMenu)
                 {
-                    widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.name.Length + 3); // 3 for ...
+                    widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.label.Length + 3); // 3 for ...
                 }
                 else
                 {
-                    if (item.name != null && item.value != null)
+                    if (item.label != null && item.value != null)
                     {
-                        widthOfName = Math.Max(widthOfName, item.name.Length);
+                        widthOfName = Math.Max(widthOfName, item.label.Length);
                         widthOfValue = Math.Max(widthOfValue, item.value.Length);
                     }
                     else
                     {
-                        widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.name.Length);
+                        widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.label.Length);
                     }
                 }
             }

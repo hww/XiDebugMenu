@@ -38,7 +38,7 @@ namespace VARP.DebugMenus
         {
             switch (tag)
             {
-                case DebugMenu.EvenTag.Previous:
+                case DebugMenu.EvenTag.Prev:
                     line--;
                     break;
                 case DebugMenu.EvenTag.Next:

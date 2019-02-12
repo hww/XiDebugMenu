@@ -60,11 +60,11 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Increment:
+                case EvenTag.Dec:
                     setter((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + 1) / floatingPointScale);
                     Render();
                     break;
-                case EvenTag.Decrement:
+                case EvenTag.Inc:
                     setter((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - 1) / floatingPointScale);
                     Render();
                     break;
@@ -78,8 +78,10 @@ namespace VARP.DebugMenus
         private void Render()
         {
             var val = getter();
+            var def = val == defaultValue;
             value = val.ToString(format);
-            valueColor = val.Equals(defaultValue) ? Tango.GreenBright : Tango.YellowDark;
+            valueColor = def ? Colors.ValueDefault : Colors.ValueModified;
+            labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
         }
         
     }

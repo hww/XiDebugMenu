@@ -28,9 +28,9 @@ namespace VARP.DebugMenus
 {
     public class DebugMenuAction : DebugMenuItem
     {
-        private readonly Action action;
+        private readonly Action<DebugMenuAction, EvenTag> action;
 
-        public DebugMenuAction(string path, Action action, int order = 0)
+        public DebugMenuAction(string path, Action<DebugMenuAction, EvenTag> action, int order = 0)
             : base(path, order)
         {
             this.action = action;
@@ -44,17 +44,21 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Increment:
-                    action();
+                case EvenTag.Dec:
+                    action(this, tag);
                     break;
-                case EvenTag.Decrement:
+                case EvenTag.Inc:
+                    action(this, tag);
+                    break;
+                case EvenTag.Reset:
+                    action(this, tag);
                     break;
             }
         }
 
         private void Render()
         {
-            nameColor = action != null ? Tango.WhiteBright : Tango.WhiteDark;
+            labelColor = action != null ? Colors.ToggleLabelDisabled : Colors.LabelModified;
         }
     }
 }
