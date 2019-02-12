@@ -51,6 +51,7 @@ public enum EvenTag
 ```
 ## Actions
 
+The action code can update the menu item fields, and customly response for events: Inc,Dec and Reset
 ```C#
 new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { 
         switch (tag)
