@@ -42,12 +42,13 @@ A,D edit menu item
 R reset value to default
 
 ## Colors
+
 - booleans
--- yellow _color for label for enabed feture_
--- white _color for label for disabled feature_
+  - yellow _color for label for enabed feture_
+  - white _color for label for disabled feature_
 - integers,floats,enums
--- bright green _color for value for default_ 
--- yellow _color for value and label for not default value_
+  - bright green _color for value for default_ 
+  - yellow _color for value and label for not default value_
 - actions
--- gray _color for inactive action_
--- other _color for active action_ 
+  - gray _color for inactive action_
+  - other _color for active action_ 
