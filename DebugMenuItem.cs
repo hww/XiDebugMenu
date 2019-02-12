@@ -43,6 +43,7 @@ namespace VARP.DebugMenus
             Decrement, 
             Previous,
             Next,
+            Reset,
             Alternate = 1024
         }
         

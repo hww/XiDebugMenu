@@ -56,6 +56,10 @@ namespace VARP.DebugMenus
                     setter(!getter());
                     Render();
                     break;
+                case EvenTag.Reset:
+                    setter(defaultValue);
+                    Render();
+                    break;
             }
         }
 

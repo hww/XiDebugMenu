@@ -40,7 +40,7 @@ namespace VARP.DebugMenus
         public const string MagentaBright = "#c19fbe";
         public const string CyanDark = "#07c7ca";
         public const string CyanBright = "#63e9e9";
-        public const string WhiteDark = "d3d7cf";
-        public const string WhiteBright = "eeeeec";
+        public const string WhiteDark = "#d3d7cf";
+        public const string WhiteBright = "#eeeeec";
     }
 }

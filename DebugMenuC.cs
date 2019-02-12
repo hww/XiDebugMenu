@@ -41,9 +41,8 @@ namespace VARP.DebugMenus
         public int fontSize = 16;
         [BoxGroup("State")]
         public bool isVisible;
+        [BoxGroup("State")]
         public bool isDirty;
-
-
     
         private Stack<MenuState> stack = new Stack<MenuState>(10);
 
@@ -62,6 +61,7 @@ namespace VARP.DebugMenus
         {
             menuText.fontSize = fontSize;
             menuText.autoSizeTextContainer = true;
+            SetVisible(false);
         }
 
         void Update()
@@ -82,7 +82,11 @@ namespace VARP.DebugMenus
                     SendEvent(DebugMenu.EvenTag.Decrement);
                 if (Input.GetKeyDown(KeyCode.D))
                     SendEvent(DebugMenu.EvenTag.Increment);
+                if (Input.GetKeyDown(KeyCode.R))
+                    SendEvent(DebugMenu.EvenTag.Reset);
             }
+            if (isDirty)
+                Render();
         }
 
         // =============================================================================================================

@@ -68,6 +68,10 @@ namespace VARP.DebugMenus
                     setter((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - 1) / floatingPointScale);
                     Render();
                     break;
+                case EvenTag.Reset:
+                    setter(defaultValue);
+                    Render();
+                    break;
             }
         }
 

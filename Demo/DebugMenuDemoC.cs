@@ -26,14 +26,9 @@ using UnityEngine;
 
 namespace VARP.DebugMenus.Demo
 {
-    public class DebugMenuDemC : MonoBehaviour
+    public class DebugMenuDemoC : MonoBehaviour
     {
-        public enum TrafficLight
-        {
-            Red,
-            Gree,
-            Blue
-        }
+        public enum TrafficLight { Red, Green, Blue }
 
         public TrafficLight enumValue;
         public bool toggleValue;
