@@ -23,3 +23,24 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 2);
 ![Picture1](Documentation/menu-picture1.png)
 ![Picture2](Documentation/menu-picture2.png)
 ![Picture3](Documentation/menu-picture3.png)
+
+## Enum values
+
+```C#
+public enum TrafficLight { Red,Green, Blue }
+public TrafficLight enumValue;
+
+new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
+```
+
+## Keyboard Shortcuts
+
+E show hide menu
+ESC close current menu and display previous, or hide menu
+W,S move previous and next menu item
+A,D edit menu item
+R reset value to default
+
+## Colors
+
+
