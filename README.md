@@ -32,3 +32,15 @@ public TrafficLight enumValue;
 
 new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
 ```
+
+## Keyboard Shortcuts
+
+E show hide menu
+ESC close current menu and display previous, or hide menu
+W,S move previous and next menu item
+A,D edit menu item
+R reset value to default
+
+## Colors
+
+
