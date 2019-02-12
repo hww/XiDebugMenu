@@ -68,7 +68,7 @@ namespace VARP.DebugMenus
         {
             var val = getter();
             value = val.ToString();
-            valueColor = val.Equals(defaultValue) ? Tango.GreenBright : Tango.YellowBright;
+            valueColor = val.Equals(defaultValue) ? Tango.GreenBright : Tango.YellowDark;
         }
         
     }

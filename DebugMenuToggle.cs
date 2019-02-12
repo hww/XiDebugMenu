@@ -66,7 +66,7 @@ namespace VARP.DebugMenus
         private void Render()
         {
             var val = getter();
-            nameColor = val ? (val == defaultValue ? Tango.GreenBright : Tango.YellowBright) : Tango.WhiteBright;
+            nameColor = val ? (val == defaultValue ? Tango.GreenBright : Tango.YellowDark) : Tango.WhiteBright;
         }
     }
 }
