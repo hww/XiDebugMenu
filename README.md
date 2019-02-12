@@ -16,7 +16,8 @@ new DebugMenu("Edit/Preferences");
 new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
 new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 1);
 new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 1);
-new DebugMenuAction("Edit/Preferences/Action", () => { Debug.Log("Action"); }, 1);
+new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { Debug.Log("Action"); }, 1);
+new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
 new DebugMenu("Edit/Preferences/Extra Preferences", 2);
 ```
 
@@ -31,6 +32,38 @@ public enum TrafficLight { Red,Green, Blue }
 public TrafficLight enumValue;
 
 new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
+```
+
+## Events
+
+```C#
+public enum EvenTag
+{
+    Null,               //< Nothing 
+    Render,             //< Render item, update label, value and colors
+    Dec,                //< Decrease value or call action
+    Inc,                //< Increase value or call action
+    Prev,               //< Go to previous item 
+    Next,               //< Go to next item
+    Reset,              //< Reset value to default
+    Shift = 1024        //< Alternate behaviour with shift button
+}
+```
+## Actions
+
+```C#
+new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { 
+        switch (tag)
+        {
+        case EventTag.Inc:
+           item.value = "Inc";
+           break;
+        case EventTag.Dec:
+           item.value = "Dec";
+           break;
+        ...
+        }
+}, 1);
 ```
 
 ## Keyboard Shortcuts
