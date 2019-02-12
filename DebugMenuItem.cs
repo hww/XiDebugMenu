@@ -26,8 +26,6 @@ namespace VARP.DebugMenus
 {
     public abstract class DebugMenuItem
     {
-
-        
         public DebugMenu menu;
         public int order;
         public readonly string label;
@@ -74,7 +72,6 @@ namespace VARP.DebugMenus
         }
 
         public override string ToString() { return $"MenuItem[{label}]"; }
-
 
         // =============================================================================================================
         // Syntax sugar (Can be removed)

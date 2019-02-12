@@ -22,6 +22,7 @@
 // SOFTWARE.
 // =============================================================================
 
+using System.Collections;
 using UnityEngine;
 
 namespace VARP.DebugMenus.Demo
@@ -38,14 +39,17 @@ namespace VARP.DebugMenus.Demo
         private void OnEnable()
         {
 
-            new DebugMenu("Edit/Preferences");
+            var menu = new DebugMenu("Edit/Preferences");
+            menu.autoRefreshPeriod = 1f; // to redraw menu each this period
             new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
             new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 1);
             new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 1);
-            new DebugMenuAction("Edit/Preferences/Action", (item) => { Debug.Log("Action"); }, 1);
+            new DebugMenuAction("Edit/Preferences/Action", (item, e) => { Debug.Log("Action"); }, 1);
             new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
             new DebugMenu("Edit/Preferences/Extra Preferences", 2);
+            new DebugMenuFloat("Edit/Preferences/Time", () => Time.time, order: 2);
 
         }
+
     }
 }

@@ -40,7 +40,7 @@ namespace VARP.DebugMenus
             "0", "0.0", "0.00", "0.000", "0.0000", "0.00000", "0.000000", "0.0000000", "0.00000000"
         };
         
-        public DebugMenuFloat(string path, Func<float> getter, Action<float> setter, int order = 0, 
+        public DebugMenuFloat(string path, Func<float> getter, Action<float> setter = null, int order = 0, 
             int precision = 2, string format = null)
             : base(path, order)
         {
@@ -61,15 +61,15 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Dec:
-                    setter((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + 1) / floatingPointScale);
+                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + 1) / floatingPointScale);
                     Render();
                     break;
                 case EvenTag.Inc:
-                    setter((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - 1) / floatingPointScale);
+                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - 1) / floatingPointScale);
                     Render();
                     break;
                 case EvenTag.Reset:
-                    setter(defaultValue);
+                    setter?.Invoke(defaultValue);
                     Render();
                     break;
             }

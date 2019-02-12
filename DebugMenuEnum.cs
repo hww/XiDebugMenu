@@ -50,15 +50,15 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Dec:
-                    setter(EnumExtensions.Next(getter()));
+                    setter?.Invoke(EnumExtensions.Next(getter()));
                     Render();
                     break;
                 case EvenTag.Inc:
-                    setter(EnumExtensions.Previous(getter()));
+                    setter?.Invoke(EnumExtensions.Previous(getter()));
                     Render();
                     break;
                 case EvenTag.Reset:
-                    setter(defaultValue);
+                    setter?.Invoke(defaultValue);
                     Render();
                     break;
             }

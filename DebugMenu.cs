@@ -28,11 +28,6 @@ using UnityEngine;
 
 namespace VARP.DebugMenus
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <example>
-    /// </example>
     public class DebugMenu : DebugMenuItem
     {
         public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0, 20);
@@ -52,7 +47,8 @@ namespace VARP.DebugMenus
         // =============================================================================================================
         // Menu lines code
         // =============================================================================================================
-        
+
+        public float autoRefreshPeriod;
         private readonly List<DebugMenuItem> itemsList;
         
         public int Count => itemsList.Count;                 // Get lines quantity

@@ -34,7 +34,7 @@ namespace VARP.DebugMenus
         private readonly int increment;
         private int defaultValue;
         
-        public DebugMenuInteger(string path, Func<int> getter, Action<int> setter, int order = 0,
+        public DebugMenuInteger(string path, Func<int> getter, Action<int> setter  = null, int order = 0,
             int increment = 1, string format = null)
             : base(path, order)
         {
@@ -54,15 +54,15 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Dec:
-                    setter(getter() + increment);
+                    setter?.Invoke(getter() + increment);
                     Render();
                     break;
                 case EvenTag.Inc:
-                    setter(getter() - increment);
+                    setter?.Invoke(getter() - increment);
                     Render();
                     break;
                 case EvenTag.Reset:
-                    setter(defaultValue);
+                    setter?.Invoke(defaultValue);
                     Render();
                     break;
             }

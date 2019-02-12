@@ -45,7 +45,9 @@ namespace VARP.DebugMenus
         public bool isDirty;
     
         private Stack<MenuState> stack = new Stack<MenuState>(10);
-
+        private float autoRefreshTimer;
+        private float autoRefreshPeriod;
+        
         // =============================================================================================================
         // Mono behaviour
         // =============================================================================================================
@@ -68,8 +70,13 @@ namespace VARP.DebugMenus
         {
             if (Input.GetKeyDown(KeyCode.E))
                 SetVisible(!isVisible);
+            
             if (isVisible)
             {
+                // Refresh menu time to time if autoRefreshPeriod is more than zero
+                if (autoRefreshPeriod > 0 && autoRefreshPeriod < autoRefreshTimer)
+                    isDirty = true;
+                
                 if (Input.GetKeyDown(KeyCode.Escape))
                     CloseMenu();
                 DebugMenu.EvenTag evt = DebugMenu.EvenTag.Null; 
@@ -85,6 +92,7 @@ namespace VARP.DebugMenus
                 if (Input.GetKeyDown(KeyCode.R))
                     SendEvent(DebugMenu.EvenTag.Reset);
             }
+            
             if (isDirty)
                 Render();
         }
@@ -158,8 +166,14 @@ namespace VARP.DebugMenus
         {
             isDirty = false;
             var state = stack.Peek();
+            autoRefreshPeriod = state.debugMenu.autoRefreshPeriod;
+            autoRefreshTimer = 0;
             menuText.text = MenuTextRenderer.RenderMenu(this, state.debugMenu, state.line);
         }
 
+        public void MakeDirty()
+        {
+            isDirty = true;
+        }
     }
 }
