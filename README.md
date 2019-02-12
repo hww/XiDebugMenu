@@ -1,4 +1,5 @@
-# varp_debug_menu
-Simple debug menu for Unity
+# Debug Menu
 
-Forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu)
+It is easy to use, lightweight library forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed.
+
+Renders text only in game debug menu.  
