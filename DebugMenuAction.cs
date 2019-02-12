@@ -1,18 +1,15 @@
 using System;
-using UnityEngine;
 
 namespace VARP.DebugMenus
 {
-    public class DebugMenuToggle : DebugMenuItem
+    public class DebugMenuAction : DebugMenuItem
     {
-        private readonly Func<bool> getter;
-        private readonly Action<bool> setter;
+        private readonly Action action;
 
-        public DebugMenuToggle(string path, Func<bool> getter, Action<bool> setter, int order = 0)
+        public DebugMenuAction(string path, Action action, int order = 0)
             : base(path, order)
         {
-            this.getter = getter;
-            this.setter = setter;
+            this.action = action;
             this.value = null;    // do not have value, wil display it by color
         }
         
@@ -24,19 +21,16 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case DebugMenu.EvenTag.Increment:
-                    setter(!getter());
-                    Render();
+                    action();
                     break;
                 case DebugMenu.EvenTag.Decrement:
-                    setter(!getter());
-                    Render();
                     break;
             }
         }
 
         private void Render()
         {
-            nameColor = getter() ? YELLOW : WHITE;
+            nameColor = action != null ? WHITE : GRAY;
         }
     }
 }

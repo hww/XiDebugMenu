@@ -26,7 +26,7 @@ namespace VARP.DebugMenus
         
         TreeViewItem BuildTree(DebugMenu debugMenu)
         {
-            var bucketTree = new TreeViewItem { id = 0, displayName = $"{debugMenu.name} {debugMenu.order} " };
+            var bucketTree = new TreeViewItem { id = 0, displayName = $"[{debugMenu.order}] {debugMenu.name}..." };
             for (var i = 0; i < debugMenu.Count; i++)
             {
                 var item = debugMenu[i];
@@ -39,7 +39,7 @@ namespace VARP.DebugMenus
                     }
                     else
                     {
-                        var itemTree = new TreeViewItem { id = 0, displayName = $"{item.name} {item.order} [{item.value}]" };
+                        var itemTree = new TreeViewItem { id = 0, displayName = $"[{item.order}] '{item.name}'={item.value}" };
                         bucketTree.AddChild(itemTree);
                     }
                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace VARP.DebugMenus
@@ -8,12 +9,6 @@ namespace VARP.DebugMenus
     /// 
     /// </summary>
     /// <example>
-    /// new DebugMenu("Sample/ApplicationInfo", DrawApplicationInfo);
-    ///
-    /// new DebugMenuToggle("Sample/Toggle/flag",
-    ///                     () => flag,
-    ///                     f => flag = f);
-    /// new DebugMenuButton("Sample/Button/DateTimeNow", PrintDateTimeNow);
     /// </example>
     public class DebugMenu : DebugMenuItem
     {
@@ -107,11 +102,10 @@ namespace VARP.DebugMenus
             for (var i = 0; i < path.Length; i++)
             {
                 var itemName = path[i];
-                var currentItem = itemsList.Find(item => item.name == itemName);
+                var currentItem = currentMenu.itemsList.Find(item => item.name == itemName);
                 if (currentItem == null)
                 {
                     currentItem = new DebugMenu(itemName, currentMenu, order);
-
                 }
                 var menu = currentItem as DebugMenu;
                 if (menu == null)
@@ -119,6 +113,7 @@ namespace VARP.DebugMenus
                     Debug.LogError($"Expected menu '{itemName}' in path {path} found {currentItem}");
                     return null;
                 }
+                currentMenu = menu;
             }
             return currentMenu;
         }
@@ -127,19 +122,38 @@ namespace VARP.DebugMenus
         // Menu creation
         // =============================================================================================================
         
-        // pre render all menu items, and compute width of fields
-        public override void OnEvent(EvenTag tag)
+        /// <summary>
+        /// Deliver message to all children
+        /// </summary>
+        /// <param name="tag"></param>
+        public void SendToChildren(DebugMenuC sender, EvenTag tag)
         {
             for (var i = 0; i < itemsList.Count; i++)
             {
-                itemsList[i].OnEvent(tag);
+                itemsList[i].OnEvent(sender, tag);
             }
         }
 
+        /// <summary>
+        /// Perform actions for events
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="tag"></param>
+        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        {
+            // do not send message to children, just do only what this instance need
+            // update color or text
+            if (tag.HasFlag(EvenTag.Increment))
+                sender.OpenMenu(this);
+        }
+        
         public int widthOfName;
         public int widthOfValue;
         public int widthOfNameAnValue;
 
+        /// <summary>
+        /// Calculate menu, name, value columns width 
+        /// </summary>
         public void UpdateWidth(int space)
         {
             widthOfName = 0;
@@ -157,11 +171,8 @@ namespace VARP.DebugMenus
                 {
                     if (item.name != null && item.value != null)
                     {
-                        var nameLength = item.name.Length;
-                        var valueLength = item.value.Length;
-                        widthOfName = Math.Max(widthOfName, nameLength);
-                        widthOfValue = Math.Max(widthOfValue, valueLength);
-                        widthOfNameAnValue = Math.Max(widthOfNameAnValue, nameLength + valueLength + space);
+                        widthOfName = Math.Max(widthOfName, item.name.Length);
+                        widthOfValue = Math.Max(widthOfValue, item.value.Length);
                     }
                     else
                     {
@@ -169,20 +180,13 @@ namespace VARP.DebugMenus
                     }
                 }
             }
-            
-            Debug.Log($"{widthOfName} {space} {widthOfValue} <= {widthOfNameAnValue} ");
+            widthOfNameAnValue = Math.Max(widthOfNameAnValue, widthOfName + widthOfValue + space);
+            widthOfName = Math.Max(widthOfName, widthOfNameAnValue - widthOfValue - space);
         }
                 
-        public enum EvenTag
-        {
-            Null, 
-            Render,
-            Increment, 
-            Decrement, 
-            Previous,
-            Next,
-            Alternate = 1024
-        }
+
     }
+    
+
 }
 

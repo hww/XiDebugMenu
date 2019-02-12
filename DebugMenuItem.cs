@@ -9,6 +9,7 @@ namespace VARP.DebugMenus
     {
         public const string BLACK = "272727";
         public const string WHITE = "FFFFFF";
+        public const string GRAY = "707070";
         public const string YELLOW = "FFE400";
         public const string ORANGE = "FF652F";
         public const string GREEN = "12A76C";
@@ -20,11 +21,22 @@ namespace VARP.DebugMenus
         public string value;
         public string nameColor;
         public string valueColor;
+     
+        public enum EvenTag
+        {
+            Null, 
+            Render,
+            Increment, 
+            Decrement, 
+            Previous,
+            Next,
+            Alternate = 1024
+        }
         
         protected DebugMenuItem(string path, int order)
         {
-            var pathOnly = Path.GetDirectoryName(path);
-            name = Path.GetFileName(path);
+            var pathOnly = DebugMenuTools.GetDirectoryName(path);
+            name = DebugMenuTools.GetFileName(path);
             menu = DebugMenu.RootDebugMenu.GetOrCreateMenu(pathOnly);
             this.order = order;
             nameColor = WHITE;
@@ -42,7 +54,7 @@ namespace VARP.DebugMenus
             menu?.AddItem(this);
         }
 
-        public virtual void OnEvent(DebugMenu.EvenTag tag)
+        public virtual void OnEvent(DebugMenuC sender, DebugMenu.EvenTag tag)
         {
             // override this method to make specific menu item
         }

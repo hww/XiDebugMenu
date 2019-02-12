@@ -31,11 +31,11 @@ namespace VARP.DebugMenus
         }
         
      
-        public static string RenderMenu(DebugMenu debugMenu, int selected, MenuOptions options = MenuOptions.Default)
+        public static string RenderMenu(DebugMenuC sender, DebugMenu debugMenu, int selected, MenuOptions options = MenuOptions.Default)
         {
             stringBuilder.Clear();
             // update texts and the width of the fields
-            debugMenu.OnEvent(DebugMenu.EvenTag.Render);
+            debugMenu.SendToChildren(sender, DebugMenu.EvenTag.Render);
             var menuCount = debugMenu.Count;
 
             debugMenu.UpdateWidth(SPACE.Length);
@@ -47,7 +47,7 @@ namespace VARP.DebugMenus
             
             
             string itemFormat1 = $"{{0}}<color=#{{3}}>{{1,-{debugMenu.widthOfNameAnValue}}}</color>{{2}}";
-            string itemFormat2 = $"{{0}}<color=#{{4}}>{{1,-{debugMenu.widthOfName}}}</color>{SPACE}<color=#{{5}}>{{2,-{debugMenu.widthOfValue}}}</color>{{3}}";
+            string itemFormat2 = $"{{0}}<color=#{{4}}>{{1,-{debugMenu.widthOfName}}}</color>{SPACE}<color=#{{5}}>{{2,{debugMenu.widthOfValue}}}</color>{{3}}";
 
             stringBuilder.AppendLine(string.Format( upperLineFormat, justLine));
             var menuName = string.Format(itemFormat1, PREFIX, debugMenu.name, SUFFIX, debugMenu.nameColor);
@@ -62,9 +62,12 @@ namespace VARP.DebugMenus
                 var meniItem = debugMenu[i];
 
                 if (order < 0)
+                {
                     order = meniItem.order;
+                }
                 else if (order != meniItem.order)
                 {
+                    order = meniItem.order;
                     if (singleLine == null) 
                         singleLine = string.Format(middleLineFormat,justLine);
                     stringBuilder.AppendLine(singleLine);   

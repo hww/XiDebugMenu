@@ -12,7 +12,10 @@ namespace VARP.DebugMenus
         public Canvas canvas;
         [BoxGroup("Managed Objects")]
         public TextMeshProUGUI menuText;
-
+        [BoxGroup("Managed Objects")]
+        public Transform backgroundTransform;
+        [BoxGroup("Settings")]
+        public int fontSize = 16;
         [BoxGroup("State")]
         public bool isVisible;
         public bool isDirty;
@@ -31,18 +34,22 @@ namespace VARP.DebugMenus
             Debug.Assert(menuText != null);    
         }
 
-        public bool testToggleValue;
-        public int testIntegerValue;
-        public float testFloatValue;
-        
-        private void Start()
+        public bool toggleValue;
+        public int integerValue;
+        public float floatValue;
+
+        private void OnEnable()
         {
 
-            new DebugMenu("Test");
-            new DebugMenuToggle("Test/Bool", () => testToggleValue, value => testToggleValue = value, 0);
-            new DebugMenuInteger("Test/Int", () => testIntegerValue, value => testIntegerValue = value, 1);
-            new DebugMenuFloat("Test/Float", () => testFloatValue, value => testFloatValue = value, 2);
-            new DebugMenu("Test/Child",2);
+            menuText.fontSize = fontSize;
+            menuText.autoSizeTextContainer = true;
+
+            new DebugMenu("Edit/Preferences");
+            new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
+            new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 1);
+            new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 1);
+            new DebugMenuAction("Edit/Preferences/Action", () => { Debug.Log("Action"); }, 1);
+            new DebugMenu("Edit/Preferences/Extra Preferences", 2);
 
         }
 
@@ -80,7 +87,7 @@ namespace VARP.DebugMenus
             var menuLine = menu[line];
             if (Input.GetKey(KeyCode.LeftShift))
                 tag |= DebugMenu.EvenTag.Alternate;
-            menuLine.OnEvent(tag);
+            menuLine.OnEvent(this, tag);
             Render();
         }
         
@@ -136,7 +143,13 @@ namespace VARP.DebugMenus
         {
             isDirty = false;
             var state = stack.Peek();
-            menuText.text = MenuTextRenderer.RenderMenu(state.debugMenu, state.line);
+            menuText.text = MenuTextRenderer.RenderMenu(this, state.debugMenu, state.line);
+
+     
+            //Vector2 textSize = menuText.GetPreferredValues(menuText.text);
+     //
+            //// Adjust the button size / scale.
+            //backgroundTransform.localScale = textSize + Vector2.one;
         }
 
     }
