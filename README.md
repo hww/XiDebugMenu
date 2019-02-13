@@ -94,6 +94,12 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 30)
     });
 ```
 
+## Auto Update Menu
+
+```C#
+new DebugMenu("Edit/Preferences").AutoRefresh(1f);
+```
+
 ## Colors
 
 - booleans
