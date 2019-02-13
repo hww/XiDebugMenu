@@ -28,10 +28,11 @@ namespace VARP.DebugMenus
 {
     public class DebugMenuInteger : DebugMenuItem
     {
+        private const string DEFAULT_FORMAT = "0";
         private readonly Func<int> getter;
         private readonly Action<int> setter;
         private string format;
-        private int increment;
+        private int step;
         private int defaultValue;
         
         public DebugMenuInteger(string path, Func<int> getter, Action<int> setter  = null, int order = 0)
@@ -39,8 +40,19 @@ namespace VARP.DebugMenus
         {
             this.getter = getter;
             this.setter = setter;
-            format = "0";
-            increment = 1;
+            format = DEFAULT_FORMAT;
+            step = 1;
+            defaultValue = getter();
+            Render();
+        }
+        
+        public DebugMenuInteger(DebugMenu menu, string path, Func<int> getter, Action<int> setter  = null, int order = 0)
+            : base(menu, path, order)
+        {
+            this.getter = getter;
+            this.setter = setter;
+            format = DEFAULT_FORMAT;
+            step = 1;
             defaultValue = getter();
             Render();
         }
@@ -53,11 +65,11 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Inc:
-                    setter?.Invoke(getter() + increment);
+                    setter?.Invoke(getter() + step);
                     Render();
                     break;
                 case EvenTag.Dec:
-                    setter?.Invoke(getter() - increment);
+                    setter?.Invoke(getter() - step);
                     Render();
                     break;
                 case EvenTag.Reset:
@@ -76,15 +88,15 @@ namespace VARP.DebugMenus
             labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
         }
         
-        public DebugMenuInteger Increment(int value)
+        public DebugMenuInteger Step(int value)
         {
-            increment = value;
+            step = value;
             return this;
         }
         
         public DebugMenuInteger Format(string value)
         {
-            format = value ?? "0";
+            format = value ?? DEFAULT_FORMAT;
             return this;
         }
         

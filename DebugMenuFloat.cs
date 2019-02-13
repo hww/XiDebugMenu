@@ -30,12 +30,13 @@ namespace VARP.DebugMenus
 {
     public class DebugMenuFloat : DebugMenuItem
     {
+        private const int DEFAULT_STEP = 1;
         private const int DEFAULT_PRECISION = 2;
         private const int MAX_PRECISION = 8;
         private const int MIN_PRECISION = 0;
         private readonly Func<float> getter;
         private readonly Action<float> setter;
-        private int increment;
+        private int step;
         private int floatingPointScale;        //< multiply value before increment, divide after
         private string format;
         private float defaultValue;
@@ -51,18 +52,19 @@ namespace VARP.DebugMenus
             this.getter = getter;
             this.setter = setter;
             defaultValue = getter();
-            increment = 1;
+            step = DEFAULT_STEP;
             Precision(DEFAULT_PRECISION);    
             Render();
         }
         
-        public DebugMenuFloat(string label, DebugMenu menu, Func<float> getter, Action<float> setter = null, int order = 0)
+        public DebugMenuFloat(DebugMenu menu, string label, Func<float> getter, Action<float> setter = null,
+            int order = 0)
             : base(menu, label, order)
         {
             this.getter = getter;
             this.setter = setter;
             defaultValue = getter();
-            increment = 1;
+            step = DEFAULT_STEP;
             Precision(DEFAULT_PRECISION);    
             Render();
         }
@@ -75,11 +77,11 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Inc:
-                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + increment) / floatingPointScale);
+                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + step) / floatingPointScale);
                     Render();
                     break;
                 case EvenTag.Dec:
-                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - increment) / floatingPointScale);
+                    setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - step) / floatingPointScale);
                     Render();
                     break;
                 case EvenTag.Reset:
@@ -112,9 +114,9 @@ namespace VARP.DebugMenus
             return this;
         }
         
-        public DebugMenuFloat Increment(int value)
+        public DebugMenuFloat Step(int value)
         {
-            increment = value;
+            step = value;
             return this;
         }
         
