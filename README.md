@@ -14,11 +14,11 @@ public float floatValue;
 // Create new menu
 new DebugMenu("Edit/Preferences");
 new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
-new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 1);
-new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 1);
-new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { Debug.Log("Action"); }, 1);
-new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
-new DebugMenu("Edit/Preferences/Extra Preferences", 2);
+new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 2);
+new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 3);
+new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { Debug.Log("Action"); }, 4);
+new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 5);
+new DebugMenu("Edit/Preferences/Extra Preferences", 10);
 ```
 
 ![Picture1](Documentation/menu-picture1.png)
@@ -36,6 +36,8 @@ new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue,
 
 ## Events
 
+Menu manager to render and modify menu send messages to menu items.
+
 ```C#
 public enum EvenTag
 {
@@ -51,6 +53,7 @@ public enum EvenTag
 ```
 ## Actions
 
+The action code can update the menu item fields, and customly response for events: Inc,Dec and Reset
 ```C#
 new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { 
         switch (tag)
