@@ -128,9 +128,9 @@ menu.RequestRefresh()
 ```
 ## Increment & Precision
 
-**For integers** and **floats** The vaue _increment_ is a step for _Inc_ and _Dec_ evens.  The value _format_ is argument for ToString(format) method.
+For integers and floats: The _increment_ field is a step for _Inc_ and _Dec_ evens.  The _format_ field is argument for ToString(...) method.
 
-**For floats** The value _precision_ is number of digits after period. For example _increment=5_ and _precision=2_ will make steps 0.05
+**For floats** The _precision_ field is number of digits after period. For example _increment=5_ and _precision=2_ will make steps 0.05
 
 ## Syntax Sugar
 
