@@ -48,7 +48,8 @@ public enum EvenTag
     Prev,               //< Go to previous item 
     Next,               //< Go to next item
     Reset,              //< Reset value to default
-    Shift = 1024        //< Alternate behaviour with shift button
+    OpenMenu,           //< When menu open    
+    CloseMenu           //< When menu closed
 }
 ```
 ## Actions
@@ -71,11 +72,33 @@ new DebugMenuAction("Edit/Preferences/Action", (item,tag) => {
 
 ## Keyboard Shortcuts
 
-E show hide menu
-ESC close current menu and display previous, or hide menu
-W,S move previous and next menu item
-A,D edit menu item
-R reset value to default
+- E show hide menu
+- ESC close current menu and display previous, or hide menu
+- W,S move previous and next menu item
+- A,D edit menu item
+- R reset value to default
+
+## Open/Close Menu
+
+Possible to add menu items when menu opens, and remove when it closes.
+
+```C#
+new DebugMenu("Edit/Preferences/Extra Preferences", 30)
+    .OnOpen(menu => 
+    {
+        new DebugMenuToggle("Toggle2", menu, () => toggleValue, value => toggleValue = value);
+    })
+    .OnClose(menu =>
+    {
+        menu.Clear();
+    });
+```
+
+## Auto Update Menu
+
+```C#
+new DebugMenu("Edit/Preferences").AutoRefresh(1f);
+```
 
 ## Colors
 
