@@ -82,8 +82,6 @@ namespace VARP.DebugMenus
             {
                 var isSelected = i == selected;
                 var menuItem = debugMenu[i];
-
-                order++;
                 
                 if (order >= 0 && Math.Abs(order - menuItem.order) > 1) 
                     stringBuilder.AppendLine(justLine);   

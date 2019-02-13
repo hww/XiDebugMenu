@@ -42,7 +42,7 @@ namespace VARP.DebugMenus
             this.defaultValue = this.getter();
         }
         
-        public DebugMenuEnum(string label, DebugMenu menu, Func<T> getter, Action<T> setter, int order = 0)
+        public DebugMenuEnum(DebugMenu menu, string label, Func<T> getter, Action<T> setter, int order = 0)
             : base(menu, label, order)
         {
             this.getter = getter;

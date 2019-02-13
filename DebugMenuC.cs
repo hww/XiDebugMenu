@@ -107,8 +107,11 @@ namespace VARP.DebugMenus
         {
             var state = stack.Peek();
             state.OnEvent(tag);
-            var menuLine = state.debugMenu[state.line];
-            menuLine.OnEvent(this, tag);
+            if (state.line >= 0)
+            {
+                var menuLine = state.debugMenu[state.line];
+                menuLine.OnEvent(this, tag);
+            }
             Render();
         }
         

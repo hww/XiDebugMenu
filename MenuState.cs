@@ -45,7 +45,7 @@ namespace VARP.DebugMenus
                     line++;
                     break;
             }   
-            line =  Math.Max(0, Math.Min(line, debugMenu.Count - 1));
+            line =  Math.Min(line, debugMenu.Count - 1);
         }
     }
 }

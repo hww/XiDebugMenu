@@ -36,7 +36,7 @@ namespace VARP.DebugMenus
         // Root menu for all game
         // =============================================================================================================
 
-        public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0);
+        public static readonly DebugMenu RootDebugMenu = new DebugMenu(null, "Root", 0);
 
         // =============================================================================================================
         // Menu lines code
@@ -51,6 +51,7 @@ namespace VARP.DebugMenus
         private readonly List<DebugMenuItem> itemsList;
         private Action<DebugMenu> onClose;
         private Action<DebugMenu> onOpen;
+        private Action<DebugMenu> onClear;
         
         // =============================================================================================================
         // Dimensions of menu
@@ -61,7 +62,7 @@ namespace VARP.DebugMenus
             itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
 
-        public DebugMenu(string label, DebugMenu menu, int order) : base(menu, label, order)
+        public DebugMenu(DebugMenu menu, string label, int order = 0) : base(menu, label, order)
         {
             itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
@@ -113,6 +114,15 @@ namespace VARP.DebugMenus
         public void Clear()
         {
             itemsList.Clear();
+            onClear?.Invoke(this);
+        }
+        
+        public void ClearDownTree()
+        {
+            for (var i=0 ;i<itemsList.Count; i++)
+                (itemsList[i] as DebugMenu)?.ClearDownTree();
+            itemsList.Clear();
+            onClear?.Invoke(this);
         }
         
         public void RequestRefresh()
@@ -124,7 +134,7 @@ namespace VARP.DebugMenus
         {
             return $"Menu[{label}]";
         }
-
+        
         // =============================================================================================================
         // Sorting & ordering
         // =============================================================================================================
@@ -161,7 +171,7 @@ namespace VARP.DebugMenus
             {
                 var itemName = path[i];
                 var currentItem = currentMenu.itemsList.Find(item => item.label == itemName);
-                if (currentItem == null) currentItem = new DebugMenu(itemName, currentMenu, order);
+                if (currentItem == null) currentItem = new DebugMenu(currentMenu, itemName, order);
                 var menu = currentItem as DebugMenu;
                 if (menu == null)
                 {

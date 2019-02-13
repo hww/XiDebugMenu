@@ -26,24 +26,27 @@ using System;
 
 namespace VARP.DebugMenus
 {
-    public class DebugMenuAction : DebugMenuItem
+    public class DebugMenuString : DebugMenuItem
     {
-        private readonly Action<DebugMenuAction, EvenTag> action;
-
-        public DebugMenuAction(string path, Action<DebugMenuAction, EvenTag> action, int order = 0)
+        private const string DEFAULT_FORMAT = "0";
+        private readonly Func<string> getter;
+        private readonly Action<string> setter;
+        
+        public DebugMenuString(string path, Func<string> getter, Action<string> setter  = null, int order = 0)
             : base(path, order)
         {
-            this.action = action;
-            this.value = null;    // do not have value, wil display it by color
+            this.getter = getter;
+            this.setter = setter;
+            Render();
         }
         
-        public DebugMenuAction(DebugMenu menu, string label, Action<DebugMenuAction, EvenTag> action = null, int order = 0)
+        public DebugMenuString(DebugMenu menu, string label, Func<string> getter = null, Action<string> setter  = null, int order = 0)
             : base(menu, label, order)
         {
-            this.action = action;
-            this.value = null;    // do not have value, wil display it by color
+            this.getter = getter;
+            this.setter = setter;
+            Render();
         }
-
         
         public override void OnEvent(DebugMenuC sender, EvenTag tag)
         {
@@ -52,22 +55,21 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Inc:
-                    action(this, tag);
-                    break;
-                case EvenTag.Dec:
-                    action(this, tag);
-                    break;
-                case EvenTag.Reset:
-                    action(this, tag);
-                    break;
             }
         }
 
         private void Render()
         {
-            labelColor = action != null ? Colors.ToggleLabelDisabled : Colors.LabelModified;
+            if (getter!=null)
+                value = getter();
+            valueColor = Colors.ValueDefault;
+            labelColor = Colors.LabelDefault;
+        }
+        
+        public DebugMenuString Value(string value)
+        {
+            this.value = value;
+            return this;
         }
     }
-    
 }
