@@ -127,6 +127,22 @@ Set value 0 will never refresh menu. Alternative way is calling _RequestRefresh_
 menu.RequestRefresh()
 ```
 
+## Syntax Sugar
+
+```C#
+// For DebugMenu class
+DebugMenu OnOpen(Action<DebugMenu> onOpen)
+DebugMenu OnClose(Action<DebugMenu> onClose)
+DebugMenu AutoRefresh(float period)
+
+// For MenuItem class
+DebugMenuItem Order(int order)
+DebugMenuItem AddToMenu(DebugMenu menu)
+DebugMenuItem Label(string text)
+DebugMenuItem Value(string text)
+DebugMenuItem LabelColor(string color)
+DebugMenuItem ValueColor(string color)
+```
 
 
 
