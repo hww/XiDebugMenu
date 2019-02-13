@@ -43,7 +43,7 @@ namespace VARP.DebugMenus
         }
         
         public DebugMenuEnum(string label, DebugMenu menu, Func<T> getter, Action<T> setter, int order = 0)
-            : base(label, menu, order)
+            : base(menu, label, order)
         {
             this.getter = getter;
             this.setter = setter;
@@ -82,6 +82,11 @@ namespace VARP.DebugMenus
             valueColor = def ? Colors.ValueDefault : Colors.ValueModified;
             labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
         }
-        
+
+        public DebugMenuEnum<T> Default(T value)
+        {
+            defaultValue = value;
+            return this;
+        }
     }
 }

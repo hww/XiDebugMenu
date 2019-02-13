@@ -147,7 +147,6 @@ MonoBehaviour:
   backgroundTransform: {fileID: 1439474938}
   fontSize: 16
   isVisible: 0
-  isDirty: 0
 --- !u!114 &118133943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,8 +487,8 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: DebugMenu
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d3b0091daad5a9947a9c2ccca9bac51e, type: 2}
-  m_sharedMaterial: {fileID: 21740741715783760, guid: d3b0091daad5a9947a9c2ccca9bac51e,
+  m_fontAsset: {fileID: 11400000, guid: a4843b4d47386364d87aea29ce58d0e5, type: 2}
+  m_sharedMaterial: {fileID: 21545206951518306, guid: a4843b4d47386364d87aea29ce58d0e5,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -709,7 +708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.6784314}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7764706}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

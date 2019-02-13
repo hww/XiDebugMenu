@@ -22,8 +22,6 @@
 // SOFTWARE.
 // =============================================================================
 
-using UnityEditor;
-
 namespace VARP.DebugMenus
 {
     public abstract class DebugMenuItem
@@ -34,7 +32,7 @@ namespace VARP.DebugMenus
         public string value;             //< at right side of menu item
         public string labelColor;        //< label color
         public string valueColor;        //< value color
-     
+        
         public enum EvenTag
         {
             Null,               //< Nothing 
@@ -47,7 +45,7 @@ namespace VARP.DebugMenus
             OpenMenu,           //< When menu open    
             CloseMenu           //< When menu closed
         }
-        
+
         protected DebugMenuItem(string path, int order)
         {
             var pathOnly = DebugMenuTools.GetDirectoryName(path);
@@ -59,7 +57,7 @@ namespace VARP.DebugMenus
             menu.AddItem(this);
         }
 
-        protected DebugMenuItem(string label, DebugMenu menu, int order)
+        protected DebugMenuItem(DebugMenu menu, string label, int order)
         {
             this.label = label;
             this.menu = menu;
@@ -86,7 +84,7 @@ namespace VARP.DebugMenus
         public DebugMenuItem Order(int order)
         {
             this.order = order;
-            menu.Reorder();
+            menu.Sort();
             return this;
         }
         
@@ -97,5 +95,24 @@ namespace VARP.DebugMenus
             menu.AddItem(this);
             return this;
         }
+
+        public DebugMenuItem Value(string value)
+        {
+            this.value = value;
+            return this;
+        }
+        
+        public DebugMenuItem LabelColor(string value)
+        {
+            labelColor = value;
+            return this;
+        }
+        
+        public DebugMenuItem ValueColor(string value)
+        {
+            valueColor = value;
+            return this;
+        }
+        
     }
 }

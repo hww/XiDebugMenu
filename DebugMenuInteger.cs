@@ -30,19 +30,18 @@ namespace VARP.DebugMenus
     {
         private readonly Func<int> getter;
         private readonly Action<int> setter;
-        private readonly string format;
-        private readonly int increment;
+        private string format;
+        private int increment;
         private int defaultValue;
         
-        public DebugMenuInteger(string path, Func<int> getter, Action<int> setter  = null, int order = 0,
-            int increment = 1, string format = null)
+        public DebugMenuInteger(string path, Func<int> getter, Action<int> setter  = null, int order = 0)
             : base(path, order)
         {
             this.getter = getter;
             this.setter = setter;
-            this.format = format ?? "0";
-            this.increment = increment;
-            this.defaultValue = getter();
+            format = "0";
+            increment = 1;
+            defaultValue = getter();
             Render();
         }
         
@@ -75,6 +74,24 @@ namespace VARP.DebugMenus
             value = val.ToString(format);
             valueColor = def ? Colors.ValueDefault : Colors.ValueModified;
             labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
+        }
+        
+        public DebugMenuInteger Increment(int value)
+        {
+            increment = value;
+            return this;
+        }
+        
+        public DebugMenuInteger Format(string value)
+        {
+            format = value ?? "0";
+            return this;
+        }
+        
+        public DebugMenuInteger Default(int value)
+        {
+            defaultValue = value;
+            return this;
         }
     }
 }

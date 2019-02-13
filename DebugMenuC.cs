@@ -76,7 +76,7 @@ namespace VARP.DebugMenus
                 // Refresh menu time to time if autoRefreshPeriod is more than zero
                 if (autoRefresh && Time.time > autoRefreshAt)
                 {
-                    state.debugMenu.MakeDirty();
+                    state.debugMenu.RequestRefresh();
                 }
                 
                 if (Input.GetKeyDown(KeyCode.Escape))
@@ -94,7 +94,7 @@ namespace VARP.DebugMenus
                 if (Input.GetKeyDown(KeyCode.R))
                     SendEvent(DebugMenu.EvenTag.Reset);
                 
-                if (state.debugMenu.isDirty)
+                if (state.debugMenu.doRefresh)
                     Render();
             }
         }
@@ -166,7 +166,7 @@ namespace VARP.DebugMenus
         {
             var state = stack.Peek();
             var menu = state.debugMenu;
-            menu.isDirty = false;
+            menu.doRefresh = false;
             autoRefresh = menu.autoRefreshPeriod > 0;
             autoRefreshAt = Time.time + menu.autoRefreshPeriod;
             menuText.text = MenuTextRenderer.RenderMenu(this, menu, state.line);

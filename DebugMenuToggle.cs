@@ -42,7 +42,7 @@ namespace VARP.DebugMenus
         }
         
         public DebugMenuToggle(string label, DebugMenu menu, Func<bool> getter, Action<bool> setter, int order = 0)
-            : base(label, menu, order)
+            : base(menu, label, order)
         {
             this.getter = getter;
             this.setter = setter;
