@@ -48,7 +48,8 @@ public enum EvenTag
     Prev,               //< Go to previous item 
     Next,               //< Go to next item
     Reset,              //< Reset value to default
-    Shift = 1024        //< Alternate behaviour with shift button
+    OpenMenu,           //< When menu open    
+    CloseMenu           //< When menu closed
 }
 ```
 ## Actions
