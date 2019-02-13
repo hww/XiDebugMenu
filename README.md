@@ -1,8 +1,8 @@
 # Debug Menu
 
-It is easy to use, lightweight library forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed.
+It is easy to use, lightweight library initially forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed.
 
-Renders text only in game debug menu.  
+The library renders as text, in game menu.  
 
 ```C#
 
@@ -40,29 +40,29 @@ new DebugMenuEnum<TrafficLight>(menu, "TraficLight", () => enumValue, value => e
 
 ## Default Value
 
-For integer, floats and enum types creating new DebugMenuItem will capture current value as defaut. When value is default it displayed as bright green color. Other color tages below.
+For integer, floats and enum types creating new DebugMenuItem will capture current value as defaut. When value is default it displayed as bright green color. Information about other color tags see below.
 
-- booleans
+- **booleans**
   - yellow _color of label for enabed feture_
   - white _color of label for disabled feature_
-- integers,floats,enums
+- **integers**, **floats**, **enums**
   - bright green _color of value for default_ 
   - yellow _color of value and label for not default value_
-- actions
+- **actions**
   - gray _color for inactive action_
   - other _color for active action_ 
 
 ## Keyboard Shortcuts
 
-- E show hide menu
-- ESC close current menu and display previous, or hide menu
+- E show or hide menu without closing it
+- ESC close current menu and display previous, or hide menu if there are no more
 - W,S move previous and next menu item
 - A,D edit menu item
 - R reset value to default
 
 ## Events
 
-Menu manager to render and modify menu send messages to menu items.
+Menu manager sends messages to menu items for rendering and modifying items .
 
 ```C#
 public enum EvenTag
@@ -80,7 +80,8 @@ public enum EvenTag
 ```
 ## Actions
 
-The action code can update the menu item fields, and customly response for events: Inc,Dec and Reset
+The action code can update the item's fields, and differently response for events: Inc,Dec and Reset
+
 ```C#
 new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { 
         switch (tag)
@@ -112,9 +113,21 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 30)
     });
 ```
 
-## Auto Update Menu
+## Refresh menu and AutoRefresh Menu
+
+If values in menu can be modified by game, to display it the menu should be rendered time to time.
 
 ```C#
 new DebugMenu("Edit/Preferences").AutoRefresh(1f);
 ```
+
+Set value 0 will never refresh menu. Alternative way is calling _RequestRefresh_ method.
+
+```C#
+menu.RequestRefresh()
+```
+
+
+
+
 
