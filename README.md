@@ -27,6 +27,17 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 10);
 ![Picture2](Documentation/menu-picture2.png)
 ![Picture3](Documentation/menu-picture3.png)
 
+Other way is to add items directly to menu.
+
+```C#
+var menu, new DebugMenu("Edit/Preferences");
+new DebugMenuToggle(menu, "Toggle", () => toggleValue, value => toggleValue = value, 1);
+new DebugMenuInteger( menu, "Integer",() => integerValue, value => integerValue = value, 2);
+new DebugMenuFloat(menu, "Float", () => floatValue, value => floatValue = value, 3);
+new DebugMenuAction(menu, "Action", (item,tag) => { Debug.Log("Action"); }, 4);
+new DebugMenuEnum<TrafficLight>(menu, "TraficLight", () => enumValue, value => enumValue = value, 5);
+```
+
 ## Default Value
 
 For integer, floats and enum types creating new DebugMenuItem will capture current value as defaut. When value is default it displayed as bright green color. Other color tages below.
