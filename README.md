@@ -126,6 +126,11 @@ Set value 0 will never refresh menu. Alternative way is calling _RequestRefresh_
 ```C#
 menu.RequestRefresh()
 ```
+## Increment & Precision
+
+**For integers** and **floats** The vaue _increment_ is a step for _Inc_ and _Dec_ evens.  The value _format_ is argument for ToString(format) method.
+
+**For floats** The value _precision_ is number of digits after period. For example _increment=5_ and _precision=2_ will make steps 0.05
 
 ## Syntax Sugar
 
@@ -141,6 +146,20 @@ DebugMenuItem AddToMenu(DebugMenu menu)
 DebugMenuItem Value(string text)
 DebugMenuItem LabelColor(string color)
 DebugMenuItem ValueColor(string color)
+
+// For enum value
+DebugMenuEnum<T> Default(T value)
+
+// For integer
+DebugMenuInteger Default(int value)
+DebugMenuInteger Increment(int value)
+DebugMenuInteger Format(string value)
+
+// For float
+DebugMenuFloat Default(float value)
+DebugMenuFloat Precision(int precision)
+DebugMenuFloat Increment(int value)
+DebugMenuFloat Format(string format)
 ```
 
 
