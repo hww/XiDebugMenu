@@ -36,6 +36,8 @@ new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue,
 
 ## Events
 
+Menu manager to render and modify menu send messages to menu items.
+
 ```C#
 public enum EvenTag
 {
