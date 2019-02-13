@@ -143,9 +143,9 @@ DebugMenu AutoRefresh(float period)
 // For MenuItem class
 DebugMenuItem Order(int order)
 DebugMenuItem AddToMenu(DebugMenu menu)
-DebugMenuItem Value(string text)
-DebugMenuItem LabelColor(string color)
-DebugMenuItem ValueColor(string color)
+DebugMenuItem Value(string value)
+DebugMenuItem LabelColor(string value)
+DebugMenuItem ValueColor(string value)
 
 // For enum value
 DebugMenuEnum<T> Default(T value)
@@ -157,9 +157,9 @@ DebugMenuInteger Format(string value)
 
 // For float
 DebugMenuFloat Default(float value)
-DebugMenuFloat Precision(int precision)
+DebugMenuFloat Precision(int value)
 DebugMenuFloat Increment(int value)
-DebugMenuFloat Format(string format)
+DebugMenuFloat Format(string value)
 ```
 
 
