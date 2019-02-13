@@ -138,7 +138,6 @@ DebugMenu AutoRefresh(float period)
 // For MenuItem class
 DebugMenuItem Order(int order)
 DebugMenuItem AddToMenu(DebugMenu menu)
-DebugMenuItem Label(string text)
 DebugMenuItem Value(string text)
 DebugMenuItem LabelColor(string color)
 DebugMenuItem ValueColor(string color)
