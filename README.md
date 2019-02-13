@@ -147,15 +147,15 @@ DebugMenuItem Value(string value)
 DebugMenuItem LabelColor(string value)
 DebugMenuItem ValueColor(string value)
 
-// For enum value
+// For DebugMenuEnum class
 DebugMenuEnum<T> Default(T value)
 
-// For integer
+// For DebugMenuInteger class
 DebugMenuInteger Default(int value)
 DebugMenuInteger Increment(int value)
 DebugMenuInteger Format(string value)
 
-// For float
+// For DebugMenuFloat class
 DebugMenuFloat Default(float value)
 DebugMenuFloat Precision(int value)
 DebugMenuFloat Increment(int value)
