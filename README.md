@@ -78,6 +78,22 @@ W,S move previous and next menu item
 A,D edit menu item
 R reset value to default
 
+## Open/Close Menu
+
+Possible to add menu items when menu opens, and remove when it closes.
+
+```C#
+new DebugMenu("Edit/Preferences/Extra Preferences", 30)
+    .OnOpen(menu => 
+    {
+        new DebugMenuToggle("Toggle2", menu, () => toggleValue, value => toggleValue = value);
+    })
+    .OnClose(menu =>
+    {
+        menu.Clear();
+    });
+```
+
 ## Colors
 
 - booleans
