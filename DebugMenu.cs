@@ -31,9 +31,10 @@ namespace VARP.DebugMenus
     public class DebugMenu : DebugMenuItem
     {
         private const int DEFAULT_CAPACITY = 10;
-        public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0);
         
-        public override string ToString() { return $"Menu[{label}]"; }
+        public bool isDirty;
+        public float autoRefreshPeriod;
+        
         private Action<DebugMenu> onOpen;
         private Action<DebugMenu> onClose;
         
@@ -46,13 +47,14 @@ namespace VARP.DebugMenus
         {
             itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
-        
+
+        public override string ToString() { return $"Menu[{label}]"; }
+
         // =============================================================================================================
         // Menu lines code
         // =============================================================================================================
 
-        public bool isDirty;
-        public float autoRefreshPeriod;
+
         private readonly List<DebugMenuItem> itemsList;
         
         public int Count => itemsList.Count;                 // Get lines quantity
@@ -173,8 +175,11 @@ namespace VARP.DebugMenus
             // update color or text
             switch (tag)
             {
-                case EvenTag.Dec:
+                case EvenTag.Inc:
                     sender.OpenMenu(this);
+                    break;
+                case EvenTag.Dec:
+                    sender.CloseMenu();
                     break;
                 case EvenTag.OpenMenu:
                     onOpen?.Invoke(this);
@@ -184,6 +189,10 @@ namespace VARP.DebugMenus
                     break;
             }
         }
+        
+        // =============================================================================================================
+        // Dimensions of menu
+        // =============================================================================================================
         
         public int widthOfName;
         public int widthOfValue;
@@ -242,6 +251,19 @@ namespace VARP.DebugMenus
             this.onClose = onClose;
             return this;
         }
+        
+        public DebugMenu AutoRefresh(float period)
+        {
+            autoRefreshPeriod = period;
+            return this;
+        }
+        
+        // =============================================================================================================
+        // Root menu for all game
+        // =============================================================================================================
+        
+
+        public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0);
     }
     
 

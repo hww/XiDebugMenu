@@ -44,10 +44,10 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Inc:
                     action(this, tag);
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Dec:
                     action(this, tag);
                     break;
                 case EvenTag.Reset:

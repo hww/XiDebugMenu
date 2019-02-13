@@ -42,6 +42,16 @@ namespace VARP.DebugMenus
             this.defaultValue = this.getter();
         }
         
+        public DebugMenuEnum(string label, DebugMenu menu, Func<T> getter, Action<T> setter, int order = 0)
+            : base(label, menu, order)
+        {
+            this.getter = getter;
+            this.setter = setter;
+            this.value = null;    // do not have value, wil display it by color
+            this.defaultValue = this.getter();
+        }
+
+        
         public override void OnEvent(DebugMenuC sender, EvenTag tag)
         {
             switch (tag)
@@ -49,11 +59,11 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Inc:
                     setter?.Invoke(EnumExtensions.Next(getter()));
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Dec:
                     setter?.Invoke(EnumExtensions.Previous(getter()));
                     Render();
                     break;

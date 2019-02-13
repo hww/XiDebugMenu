@@ -39,15 +39,22 @@ namespace VARP.DebugMenus.Demo
         private void OnEnable()
         {
 
-            var menu = new DebugMenu("Edit/Preferences");
-            menu.autoRefreshPeriod = 1f; // to redraw menu each this period
+            new DebugMenu("Edit/Preferences").AutoRefresh(1f);
             new DebugMenuToggle("Edit/Preferences/Toggle", () => toggleValue, value => toggleValue = value, 1);
             new DebugMenuInteger("Edit/Preferences/Integer", () => integerValue, value => integerValue = value, 2);
             new DebugMenuFloat("Edit/Preferences/Float", () => floatValue, value => floatValue = value, 3);
             new DebugMenuAction("Edit/Preferences/Action", (item, e) => { Debug.Log("Action"); }, 4);
             new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
-            new DebugMenu("Edit/Preferences/Extra Preferences", 20);
-            new DebugMenuFloat("Edit/Preferences/Time", () => Time.time, order: 1);
+            new DebugMenuFloat("Edit/Preferences/Time", () => Time.time, order: 20);
+            new DebugMenu("Edit/Preferences/Extra Preferences", 30)
+                .OnOpen(menu => 
+                {
+                    new DebugMenuToggle("Toggle2", menu, () => toggleValue, value => toggleValue = value);
+                })
+                .OnClose(menu =>
+                {
+                    menu.Clear();
+                });
 
         }
 

@@ -39,13 +39,13 @@ namespace VARP.DebugMenus
         {
             Null,               //< Nothing 
             Render,             //< Render item, update label, value and colors
-            Dec,                //< Decrease value or call action
-            Inc,                //< Increase value or call action
+            Inc,                //< Decrease value or call action
+            Dec,                //< Increase value or call action
             Prev,               //< Go to previous item 
             Next,               //< Go to next item
             Reset,              //< Reset value to default
             OpenMenu,           //< When menu open    
-            CloseMenu,          //< When menu closed
+            CloseMenu           //< When menu closed
         }
         
         protected DebugMenuItem(string path, int order)

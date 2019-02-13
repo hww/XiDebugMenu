@@ -88,9 +88,9 @@ namespace VARP.DebugMenus
                 if (Input.GetKeyDown(KeyCode.S))
                     SendEvent(DebugMenu.EvenTag.Next);
                 if (Input.GetKeyDown(KeyCode.A))
-                    SendEvent(DebugMenu.EvenTag.Inc);
-                if (Input.GetKeyDown(KeyCode.D))
                     SendEvent(DebugMenu.EvenTag.Dec);
+                if (Input.GetKeyDown(KeyCode.D))
+                    SendEvent(DebugMenu.EvenTag.Inc);
                 if (Input.GetKeyDown(KeyCode.R))
                     SendEvent(DebugMenu.EvenTag.Reset);
                 
@@ -144,7 +144,7 @@ namespace VARP.DebugMenus
             Render();
         }
         
-        private void CloseMenu()
+        public void CloseMenu()
         {
             if (stack.Count == 1)
             {

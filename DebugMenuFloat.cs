@@ -53,6 +53,19 @@ namespace VARP.DebugMenus
             Render();
         }
         
+        public DebugMenuFloat(string label, DebugMenu menu, Func<float> getter, Action<float> setter = null, int order = 0, 
+            int precision = 2, string format = null)
+            : base(label, menu, order)
+        {
+            Debug.Assert(precision >= 0 && precision < 8);
+            this.getter = getter;
+            this.setter = setter;
+            this.format = format ?? formats[precision];
+            this.defaultValue = getter();
+            floatingPointScale = (int)Math.Pow(10, precision); // precision is digits after dot
+            Render();
+        }
+        
         public override void OnEvent(DebugMenuC sender, EvenTag tag)
         {
             switch (tag)
@@ -60,11 +73,11 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Inc:
                     setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + 1) / floatingPointScale);
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Dec:
                     setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - 1) / floatingPointScale);
                     Render();
                     break;

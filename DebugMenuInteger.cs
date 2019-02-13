@@ -53,11 +53,11 @@ namespace VARP.DebugMenus
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Inc:
                     setter?.Invoke(getter() + increment);
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Dec:
                     setter?.Invoke(getter() - increment);
                     Render();
                     break;
