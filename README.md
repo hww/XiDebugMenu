@@ -7,6 +7,8 @@ Renders text only in game debug menu.
 ```C#
 
 // The fields to modify by menu
+public enum TrafficLight { Red,Green, Blue }
+public TrafficLight enumValue;
 public bool toggleValue;
 public int integerValue;
 public float floatValue;
@@ -25,14 +27,27 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 10);
 ![Picture2](Documentation/menu-picture2.png)
 ![Picture3](Documentation/menu-picture3.png)
 
-## Enum values
+## Default Value
 
-```C#
-public enum TrafficLight { Red,Green, Blue }
-public TrafficLight enumValue;
+For integer, floats and enum types creating new DebugMenuItem will capture current value as defaut. When value is default it displayed as bright green color. Other color tages below.
 
-new DebugMenuEnum<TrafficLight>("Edit/Preferences/TraficLight", () => enumValue, value => enumValue = value, 1);
-```
+- booleans
+  - yellow _color of label for enabed feture_
+  - white _color of label for disabled feature_
+- integers,floats,enums
+  - bright green _color of value for default_ 
+  - yellow _color of value and label for not default value_
+- actions
+  - gray _color for inactive action_
+  - other _color for active action_ 
+
+## Keyboard Shortcuts
+
+- E show hide menu
+- ESC close current menu and display previous, or hide menu
+- W,S move previous and next menu item
+- A,D edit menu item
+- R reset value to default
 
 ## Events
 
@@ -70,17 +85,9 @@ new DebugMenuAction("Edit/Preferences/Action", (item,tag) => {
 }, 1);
 ```
 
-## Keyboard Shortcuts
+## Open/Close Menu Event
 
-- E show hide menu
-- ESC close current menu and display previous, or hide menu
-- W,S move previous and next menu item
-- A,D edit menu item
-- R reset value to default
-
-## Open/Close Menu
-
-Possible to add menu items when menu opens, and remove when it closes.
+Possible to add menu items when menu opens, and remove items when it closes.
 
 ```C#
 new DebugMenu("Edit/Preferences/Extra Preferences", 30)
@@ -100,14 +107,3 @@ new DebugMenu("Edit/Preferences/Extra Preferences", 30)
 new DebugMenu("Edit/Preferences").AutoRefresh(1f);
 ```
 
-## Colors
-
-- booleans
-  - yellow _color of label for enabed feture_
-  - white _color of label for disabled feature_
-- integers,floats,enums
-  - bright green _color of value for default_ 
-  - yellow _color of value and label for not default value_
-- actions
-  - gray _color for inactive action_
-  - other _color for active action_ 
