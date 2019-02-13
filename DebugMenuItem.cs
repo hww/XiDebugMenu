@@ -22,16 +22,18 @@
 // SOFTWARE.
 // =============================================================================
 
+using UnityEditor;
+
 namespace VARP.DebugMenus
 {
     public abstract class DebugMenuItem
     {
-        public DebugMenu menu;
-        public int order;
-        public readonly string label;
-        public string value;
-        public string labelColor;
-        public string valueColor;
+        public DebugMenu menu;           //< the menu of this item 
+        public int order;                //< sorting menu items and group them by similarities
+        public readonly string label;    //< at left side of menu item
+        public string value;             //< at right side of menu item
+        public string labelColor;        //< label color
+        public string valueColor;        //< value color
      
         public enum EvenTag
         {
@@ -42,7 +44,8 @@ namespace VARP.DebugMenus
             Prev,               //< Go to previous item 
             Next,               //< Go to next item
             Reset,              //< Reset value to default
-            Shift = 1024        //< Alternate behaviour with shift button
+            OpenMenu,           //< When menu open    
+            CloseMenu,          //< When menu closed
         }
         
         protected DebugMenuItem(string path, int order)
@@ -77,6 +80,9 @@ namespace VARP.DebugMenus
         // Syntax sugar (Can be removed)
         // =============================================================================================================
 
+        /// <summary>
+        /// Menu will group items with equal or +1 difference to single block
+        /// </summary>
         public DebugMenuItem Order(int order)
         {
             this.order = order;

@@ -30,24 +30,28 @@ namespace VARP.DebugMenus
 {
     public class DebugMenu : DebugMenuItem
     {
-        public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0, 20);
+        private const int DEFAULT_CAPACITY = 10;
+        public static readonly DebugMenu RootDebugMenu = new DebugMenu("Root", null, 0);
         
         public override string ToString() { return $"Menu[{label}]"; }
-
-        public DebugMenu(string path, int order = 0, int capacity = 10) : base(path, order)
+        private Action<DebugMenu> onOpen;
+        private Action<DebugMenu> onClose;
+        
+        public DebugMenu(string path, int order = 0) : base(path, order)
         {
-            itemsList = new List<DebugMenuItem>(capacity);
+            itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
         
-        public DebugMenu(string label, DebugMenu menu, int order, int capacity = 10) : base(label, menu, order)
+        public DebugMenu(string label, DebugMenu menu, int order) : base(label, menu, order)
         {
-            itemsList = new List<DebugMenuItem>(capacity);
+            itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
         
         // =============================================================================================================
         // Menu lines code
         // =============================================================================================================
 
+        public bool isDirty;
         public float autoRefreshPeriod;
         private readonly List<DebugMenuItem> itemsList;
         
@@ -167,8 +171,18 @@ namespace VARP.DebugMenus
         {
             // do not send message to children, just do only what this instance need
             // update color or text
-            if (tag.HasFlag(EvenTag.Dec))
-                sender.OpenMenu(this);
+            switch (tag)
+            {
+                case EvenTag.Dec:
+                    sender.OpenMenu(this);
+                    break;
+                case EvenTag.OpenMenu:
+                    onOpen?.Invoke(this);
+                    break;
+                case EvenTag.CloseMenu:
+                    onClose?.Invoke(this);
+                    break;
+            }
         }
         
         public int widthOfName;
@@ -189,7 +203,7 @@ namespace VARP.DebugMenus
                 var item = itemsList[i];
                 if (item is DebugMenu)
                 {
-                    widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.label.Length + 3); // 3 for ...
+                    widthOfNameAnValue = Math.Max(widthOfNameAnValue, item.label.Length + 3); // 3 for "..."
                 }
                 else
                 {
@@ -208,7 +222,26 @@ namespace VARP.DebugMenus
             widthOfName = Math.Max(widthOfName, widthOfNameAnValue - widthOfValue - space);
         }
                 
+        public void MakeDirty()
+        {
+            isDirty = true;
+        }
+        
+        // =============================================================================================================
+        // Syntax sugar
+        // =============================================================================================================
 
+        public DebugMenu OnOpen(Action<DebugMenu> onOpen)
+        {
+            this.onOpen = onOpen;
+            return this;
+        }
+        
+        public DebugMenu OnClose(Action<DebugMenu> onClose)
+        {
+            this.onClose = onClose;
+            return this;
+        }
     }
     
 

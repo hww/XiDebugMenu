@@ -30,12 +30,13 @@ namespace VARP.DebugMenus
 
     public class MenuTextRenderer
     {
-        private const string SUFFIX = " ";
-        private const string PREFIX = " ";
+        private const string SUFFIX = " "; 
+        private const string PREFIX = " "; 
         private const string PREFIX_SELECTED = ">";
         private const string SPACE = "  ";
         private const char CHAR_SQUARE_DOT = '▪';
         private const char CHAR_DASHED_LINE = '-';
+        private const char CHAR_NBSP = (char)0xA0; 
         private const char CHAR_LIGHT_HORIZONTAL = '─';
             
         private const  string upperLineFormat  = "┌{0}┐";
@@ -50,9 +51,71 @@ namespace VARP.DebugMenus
         {
             Default
         }
+
+
+        public static string RenderMenu(DebugMenuC sender, DebugMenu debugMenu, int selected,
+            MenuOptions options = MenuOptions.Default)
+        {
+            stringBuilder.Clear();
+            // update texts and the width of the fields
+            debugMenu.SendToChildren(sender, DebugMenu.EvenTag.Render);
+            var menuCount = debugMenu.Count;
+
+            debugMenu.UpdateWidth(SPACE.Length);
+            
+            var lineWidth = debugMenu.widthOfNameAnValue + SUFFIX.Length + PREFIX.Length;
+
+            string singleLine = null;
+            string justLine = new string(CHAR_LIGHT_HORIZONTAL, lineWidth);
+            
+            
+            string itemFormat1 = $"{{0}}<color={{3}}>{{1,-{debugMenu.widthOfNameAnValue}}}</color>{{2}}";
+            string itemFormat2 = $"{{0}}<color={{4}}>{{1,-{debugMenu.widthOfName}}}</color>{SPACE}<color={{5}}>{{2,{debugMenu.widthOfValue}}}</color>{{3}}";
+
+            var menuName = string.Format(itemFormat1, PREFIX, debugMenu.label, SUFFIX, debugMenu.labelColor);
+            stringBuilder.AppendLine(menuName);
+            stringBuilder.AppendLine(justLine);
+
+            var order = -1;
+            
+            for (var i = 0; i < menuCount; i++)
+            {
+                var isSelected = i == selected;
+                var menuItem = debugMenu[i];
+
+                order++;
+                
+                if (order >= 0 && Math.Abs(order - menuItem.order) > 1) 
+                    stringBuilder.AppendLine(justLine);   
+                order = menuItem.order;
+                
+                var prefix = isSelected ? PREFIX_SELECTED : PREFIX;
+                string item;
+                if (menuItem is DebugMenu)
+                {
+                    item = string.Format(itemFormat1, prefix, menuItem.label + "...", SUFFIX, menuItem.labelColor);
+                }
+                else
+                {
+                    if (menuItem.label != null)
+                    {
+                        if (menuItem.value != null)
+                            item = string.Format(itemFormat2, prefix, menuItem.label, menuItem.value, SUFFIX, menuItem.labelColor, menuItem.valueColor);
+                        else
+                            item = string.Format(itemFormat1, prefix, menuItem.label, SUFFIX, menuItem.labelColor);
+                    }
+                    else
+                    {
+                        throw new ArgumentOutOfRangeException();
+                    }
+                }
+                stringBuilder.AppendLine(item);
+            }
+            return stringBuilder.ToString();
+        }
         
-     
-        public static string RenderMenu(DebugMenuC sender, DebugMenu debugMenu, int selected, MenuOptions options = MenuOptions.Default)
+        public static string RenderMenu_WithFrame(DebugMenuC sender, DebugMenu debugMenu, int selected,
+            MenuOptions options = MenuOptions.Default)
         {
             stringBuilder.Clear();
             // update texts and the width of the fields
@@ -80,34 +143,32 @@ namespace VARP.DebugMenus
             for (var i = 0; i < menuCount; i++)
             {
                 var isSelected = i == selected;
-                var meniItem = debugMenu[i];
+                var menuItem = debugMenu[i];
 
-                if (order < 0)
+                if (order >= 0 && Math.Abs(order - menuItem.order) > 1) 
                 {
-                    order = meniItem.order;
-                }
-                else if (order != meniItem.order)
-                {
-                    order = meniItem.order;
+
                     if (singleLine == null) 
                         singleLine = string.Format(middleLineFormat,justLine);
                     stringBuilder.AppendLine(singleLine);   
                 }
-   
+                
+                order = menuItem.order;
+                
                 var prefix = isSelected ? PREFIX_SELECTED : PREFIX;
                 string item;
-                if (meniItem is DebugMenu)
+                if (menuItem is DebugMenu)
                 {
-                    item = string.Format(itemFormat1, prefix, meniItem.label + "...", SUFFIX, meniItem.labelColor);
+                    item = string.Format(itemFormat1, prefix, menuItem.label + "...", SUFFIX, menuItem.labelColor);
                 }
                 else
                 {
-                    if (meniItem.label != null)
+                    if (menuItem.label != null)
                     {
-                        if (meniItem.value != null)
-                            item = string.Format(itemFormat2, prefix, meniItem.label, meniItem.value, SUFFIX, meniItem.labelColor, meniItem.valueColor);
+                        if (menuItem.value != null)
+                            item = string.Format(itemFormat2, prefix, menuItem.label, menuItem.value, SUFFIX, menuItem.labelColor, menuItem.valueColor);
                         else
-                            item = string.Format(itemFormat1, prefix, meniItem.label, SUFFIX, meniItem.labelColor);
+                            item = string.Format(itemFormat1, prefix, menuItem.label, SUFFIX, menuItem.labelColor);
                     }
                     else
                     {
@@ -119,6 +180,5 @@ namespace VARP.DebugMenus
             stringBuilder.AppendLine(string.Format( bottomLineFormat, justLine));
             return stringBuilder.ToString();
         }
-        
     }
 }

@@ -41,11 +41,10 @@ namespace VARP.DebugMenus
         public int fontSize = 16;
         [BoxGroup("State")]
         public bool isVisible;
-        [BoxGroup("State")]
-        public bool isDirty;
     
-        private Stack<MenuState> stack = new Stack<MenuState>(10);
+        private readonly Stack<MenuState> stack = new Stack<MenuState>(10);
         private float autoRefreshAt;
+        private bool autoRefresh;
         
         // =============================================================================================================
         // Mono behaviour
@@ -72,9 +71,13 @@ namespace VARP.DebugMenus
             
             if (isVisible)
             {
+                var state = stack.Peek();
+                
                 // Refresh menu time to time if autoRefreshPeriod is more than zero
-                if (autoRefreshAt > 0 && Time.time > autoRefreshAt)
-                    isDirty = true;
+                if (autoRefresh && Time.time > autoRefreshAt)
+                {
+                    state.debugMenu.MakeDirty();
+                }
                 
                 if (Input.GetKeyDown(KeyCode.Escape))
                     CloseMenu();
@@ -90,10 +93,10 @@ namespace VARP.DebugMenus
                     SendEvent(DebugMenu.EvenTag.Dec);
                 if (Input.GetKeyDown(KeyCode.R))
                     SendEvent(DebugMenu.EvenTag.Reset);
+                
+                if (state.debugMenu.isDirty)
+                    Render();
             }
-            
-            if (isDirty)
-                Render();
         }
 
         // =============================================================================================================
@@ -104,11 +107,7 @@ namespace VARP.DebugMenus
         {
             var state = stack.Peek();
             state.OnEvent(tag);
-            var menu = state.debugMenu;
-            var line = state.line;
-            var menuLine = menu[line];
-            if (Input.GetKey(KeyCode.LeftShift))
-                tag |= DebugMenu.EvenTag.Shift;
+            var menuLine = state.debugMenu[state.line];
             menuLine.OnEvent(this, tag);
             Render();
         }
@@ -141,6 +140,7 @@ namespace VARP.DebugMenus
         public void OpenMenu(DebugMenu debugMenu)
         {
             stack.Push(new MenuState { debugMenu = debugMenu, line = 0 });
+            debugMenu.OnEvent(this, DebugMenuItem.EvenTag.OpenMenu);
             Render();
         }
         
@@ -152,7 +152,8 @@ namespace VARP.DebugMenus
             }
             else
             {
-                stack.Pop();
+                var state = stack.Pop();
+                state.debugMenu.OnEvent(this, DebugMenuItem.EvenTag.CloseMenu);
                 Render();
             }
         }
@@ -163,15 +164,12 @@ namespace VARP.DebugMenus
         
         private void Render()
         {
-            isDirty = false;
             var state = stack.Peek();
-            autoRefreshAt = Time.time + state.debugMenu.autoRefreshPeriod;
-            menuText.text = MenuTextRenderer.RenderMenu(this, state.debugMenu, state.line);
-        }
-
-        public void MakeDirty()
-        {
-            isDirty = true;
+            var menu = state.debugMenu;
+            menu.isDirty = false;
+            autoRefresh = menu.autoRefreshPeriod > 0;
+            autoRefreshAt = Time.time + menu.autoRefreshPeriod;
+            menuText.text = MenuTextRenderer.RenderMenu(this, menu, state.line);
         }
     }
 }
