@@ -132,7 +132,7 @@ For integers and floats: The _step_ field is a step for _Inc_ and _Dec_ evens.  
 
 **For floats** The _precision_ field is number of digits after period. For example _increment=5_ and _precision=2_ will make increment step 0.05
 
-## Othr Syntax Sugar
+## Other Syntax Sugar
 
 ```C#
 // For DebugMenu class
