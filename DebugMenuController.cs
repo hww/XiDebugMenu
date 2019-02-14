@@ -22,30 +22,34 @@
 // SOFTWARE.
 // =============================================================================
 
-using System;
+using UnityEngine;
 
 namespace VARP.DebugMenus
 {
-    /// <summary>
-    /// Keep information about navigation in menu
-    /// </summary>
-    public class MenuState
+    public class DebugMenuController
     {
-        public DebugMenu debugMenu;
-        public int line;
-
-        public void OnEvent(DebugMenu.EvenTag tag)
+        public DebugMenuItem.EvenTag GetEvet()
         {
-            switch (tag)
+            if (Input.GetKeyDown(KeyCode.E))
+                return DebugMenuItem.EvenTag.ToggleMenu;
+            if (Input.GetKeyDown(KeyCode.Q))
+                return DebugMenuItem.EvenTag.ToggleQuickMenu;
+
+            if (DebugMenuSystem.isVisible)
             {
-                case DebugMenu.EvenTag.Prev:
-                    line--;
-                    break;
-                case DebugMenu.EvenTag.Next:
-                    line++;
-                    break;
-            }   
-            line =  Math.Min(line, debugMenu.Count - 1);
+                if (Input.GetKeyDown(KeyCode.W))
+                    return DebugMenuItem.EvenTag.Up;
+                if (Input.GetKeyDown(KeyCode.S))
+                    return DebugMenuItem.EvenTag.Down;
+                if (Input.GetKeyDown(KeyCode.A))
+                    return DebugMenuItem.EvenTag.Left;
+                if (Input.GetKeyDown(KeyCode.D))
+                    return DebugMenuItem.EvenTag.Right;
+                if (Input.GetKeyDown(KeyCode.R))
+                    return DebugMenuItem.EvenTag.Reset;
+            }
+
+            return DebugMenuItem.EvenTag.Null;
         }
     }
 }

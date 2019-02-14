@@ -34,28 +34,28 @@ namespace VARP.DebugMenus
             : base(path, order)
         {
             this.action = action;
-            this.value = null;    // do not have value, wil display it by color
+            value = null;    // do not have value, wil display it by color
         }
         
-        public DebugMenuAction(DebugMenu menu, string label, Action<DebugMenuAction, EvenTag> action = null, int order = 0)
-            : base(menu, label, order)
+        public DebugMenuAction(DebugMenu parentMenu, string label, Action<DebugMenuAction, EvenTag> action = null, int order = 0)
+            : base(parentMenu, label, order)
         {
             this.action = action;
-            this.value = null;    // do not have value, wil display it by color
+            value = null;    // do not have value, wil display it by color
         }
 
         
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        public override void OnEvent(EvenTag tag)
         {
             switch (tag)
             {
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Left:
                     action(this, tag);
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Right:
                     action(this, tag);
                     break;
                 case EvenTag.Reset:

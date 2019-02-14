@@ -40,15 +40,15 @@ namespace VARP.DebugMenus
             Render();
         }
         
-        public DebugMenuString(DebugMenu menu, string label, Func<string> getter = null, Action<string> setter  = null, int order = 0)
-            : base(menu, label, order)
+        public DebugMenuString(DebugMenu parentMenu, string label, Func<string> getter = null, Action<string> setter  = null, int order = 0)
+            : base(parentMenu, label, order)
         {
             this.getter = getter;
             this.setter = setter;
             Render();
         }
         
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        public override void OnEvent(EvenTag tag)
         {
             switch (tag)
             {

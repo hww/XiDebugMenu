@@ -33,15 +33,10 @@ namespace VARP.DebugMenus
         private const int DEFAULT_CAPACITY = 10;
 
         // =============================================================================================================
-        // Root menu for all game
-        // =============================================================================================================
-
-        public static readonly DebugMenu RootDebugMenu = new DebugMenu(null, "Root", 0);
-
-        // =============================================================================================================
         // Menu lines code
         // =============================================================================================================
 
+        public int currentLine;
         public float autoRefreshPeriod;
         public bool doRefresh;
         public int widthOfName;
@@ -62,7 +57,7 @@ namespace VARP.DebugMenus
             itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
 
-        public DebugMenu(DebugMenu menu, string label, int order = 0) : base(menu, label, order)
+        public DebugMenu(DebugMenu parentMenu, string label, int order = 0) : base(parentMenu, label, order)
         {
             itemsList = new List<DebugMenuItem>(DEFAULT_CAPACITY);
         }
@@ -71,16 +66,47 @@ namespace VARP.DebugMenus
         // DebugMenu main API
         // =============================================================================================================
         
-        public int Count => itemsList.Count; // Get lines quantity
-        public DebugMenuItem this[int idx] => itemsList[idx]; // Get line by index
-
+        /// <summary>
+        ///     Get lines quantity
+        /// </summary>
+        public int Count => itemsList.Count; 
+        /// <summary>
+        ///     Get line by index
+        /// </summary>
+        /// <param name="idx"></param>
+        public DebugMenuItem this[int idx] => itemsList[idx];
+        /// <summary>
+        ///     Get current menu item
+        /// </summary>
+        /// <returns></returns>
+        public DebugMenuItem GetCurrent()
+        {
+            if (Count == 0) return null;
+            if (currentLine >= Count) currentLine = 0;
+            return itemsList[currentLine];
+        }
+        /// <summary>
+        ///     Get root menu of this menu
+        /// </summary>
+        /// <returns></returns>
+        public DebugMenu GetRootMenu()
+        {
+            // TODO! make it non recursive
+            if (parentMenu == null)
+                return this;
+            return parentMenu.GetRootMenu();
+        }
+        /// <summary>
+        ///     Find menu item by path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         public DebugMenuItem Find(string path)
         {
             var names = path.Split('/');
             return Find(names);
         }
-
-        public DebugMenuItem Find(string[] path)
+        private DebugMenuItem Find(string[] path)
         {
             var currentMenu = this;
             var lastIndex = path.Length - 1;
@@ -99,24 +125,34 @@ namespace VARP.DebugMenus
 
             return currentMenu;
         }
-
+        /// <summary>
+        ///     Add menu item
+        /// </summary>
+        /// <param name="item"></param>
         public void AddItem(DebugMenuItem item)
         {
             itemsList.Add(item);
             itemsList.Sort(CompareItem);
         }
-
+        /// <summary>
+        ///     Remove menu item
+        /// </summary>
+        /// <param name="item"></param>
         public void RemoveItem(DebugMenuItem item)
         {
             itemsList.Remove(item);
         }
-
+        /// <summary>
+        ///     Clear all items of this menu. Do not modify children.
+        /// </summary>
         public void Clear()
         {
             itemsList.Clear();
             onClear?.Invoke(this);
         }
-        
+        /// <summary>
+        ///     Clear all item of this menu and children
+        /// </summary>
         public void ClearDownTree()
         {
             for (var i=0 ;i<itemsList.Count; i++)
@@ -124,12 +160,17 @@ namespace VARP.DebugMenus
             itemsList.Clear();
             onClear?.Invoke(this);
         }
-        
+        /// <summary>
+        ///     Request refresh for this menu
+        /// </summary>
         public void RequestRefresh()
         {
             doRefresh = true;
         }
-        
+        /// <summary>
+        ///     Get menu string
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"Menu[{label}]";
@@ -155,7 +196,13 @@ namespace VARP.DebugMenus
         // Menu find or creation
         // =============================================================================================================
 
-        // Will return existing or create new menu
+        /// <summary>
+        ///     Will return existing or create new menu
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="order"></param>
+        /// <param name="capacity"></param>
+        /// <returns></returns>
         public DebugMenu GetOrCreateMenu(string path, int order = 0, int capacity = 10)
         {
             if (string.IsNullOrEmpty(path))
@@ -163,7 +210,13 @@ namespace VARP.DebugMenus
             return GetOrCreateMenu(path.Split('/'));
         }
 
-        // Will return existing or create new menu
+        /// <summary>
+        ///     Will return existing or create new menu
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="order"></param>
+        /// <param name="capacity"></param>
+        /// <returns></returns>
         public DebugMenu GetOrCreateMenu(string[] path, int order = 0, int capacity = 10)
         {
             var currentMenu = this;
@@ -193,34 +246,47 @@ namespace VARP.DebugMenus
         ///     Deliver message to all children
         /// </summary>
         /// <param name="tag"></param>
-        public void SendToChildren(DebugMenuC sender, EvenTag tag)
+        public void SendToChildren(EvenTag tag)
         {
-            for (var i = 0; i < itemsList.Count; i++) itemsList[i].OnEvent(sender, tag);
+            for (var i = 0; i < itemsList.Count; i++) itemsList[i].OnEvent(tag);
         }
 
         /// <summary>
         ///     Perform actions for events
         /// </summary>
-        /// <param name="sender"></param>
         /// <param name="tag"></param>
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        public override void OnEvent(EvenTag tag)
         {
             // do not send message to children, just do only what this instance need
             // update color or text
             switch (tag)
             {
-                case EvenTag.Inc:
-                    sender.OpenMenu(this);
-                    break;
-                case EvenTag.Dec:
-                    sender.CloseMenu();
-                    break;
+                case EvenTag.Right:
+                    if (GetCurrent() is DebugMenu submenu)
+                        DebugMenuSystem.OpenMenu(submenu);
+                    else
+                        GetCurrent()?.OnEvent( tag);
+                    return;
+                case EvenTag.Left:
+                    if (GetCurrent() is DebugMenu)
+                        DebugMenuSystem.CloseMenu();
+                    else
+                        GetCurrent()?.OnEvent( tag);
+                    return;
                 case EvenTag.OpenMenu:
                     onOpen?.Invoke(this);
-                    break;
+                    return;
                 case EvenTag.CloseMenu:
                     onClose?.Invoke(this);
-                    break;
+                    return;
+                case EvenTag.Up:
+                    currentLine--;
+                    currentLine =  Math.Min(currentLine, Count - 1);
+                    return;
+                case EvenTag.Down:
+                    currentLine++;
+                    currentLine =  Math.Min(currentLine, Count - 1);
+                    return;
             }
         }
 

@@ -37,31 +37,32 @@ namespace VARP.DebugMenus
         {
             this.getter = getter;
             this.setter = setter;
-            this.value = null;    // do not have value, wil display it by color
-            this.defaultValue = this.getter();
+            value = null;    // do not have value, wil display it by color
+            defaultValue = this.getter();
         }
         
-        public DebugMenuToggle(string label, DebugMenu menu, Func<bool> getter, Action<bool> setter, int order = 0)
-            : base(menu, label, order)
+        public DebugMenuToggle(DebugMenu parentMenu, string label, Func<bool> getter, Action<bool> setter,
+            int order = 0)
+            : base(parentMenu, label, order)
         {
             this.getter = getter;
             this.setter = setter;
-            this.value = null;    // do not have value, wil display it by color
-            this.defaultValue = this.getter();
+            value = null;    // do not have value, wil display it by color
+            defaultValue = this.getter();
         }
         
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        public override void OnEvent(EvenTag tag)
         {
             switch (tag)
             {
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Right:
                     setter(!getter());
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Left:
                     setter(!getter());
                     Render();
                     break;

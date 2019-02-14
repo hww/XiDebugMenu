@@ -26,7 +26,7 @@ namespace VARP.DebugMenus
 {
     public abstract class DebugMenuItem
     {
-        public DebugMenu menu;           //< the menu of this item 
+        public DebugMenu parentMenu;           //< the menu of this item 
         public int order;                //< sorting menu items and group them by similarities
         public readonly string label;    //< at left side of menu item
         public string value;             //< at right side of menu item
@@ -37,37 +37,39 @@ namespace VARP.DebugMenus
         {
             Null,               //< Nothing 
             Render,             //< Render item, update label, value and colors
-            Inc,                //< Decrease value or call action
-            Dec,                //< Increase value or call action
-            Prev,               //< Go to previous item 
-            Next,               //< Go to next item
+            Up,                 //< Go to previous item 
+            Down,               //< Go to next item
+            Left,               //< Go to previous menu or decrease value or call action
+            Right,              //< Go to next menu or increase value or call action
             Reset,              //< Reset value to default
             OpenMenu,           //< When menu open    
-            CloseMenu           //< When menu closed
+            CloseMenu,          //< When menu closed
+            ToggleMenu,         //< Show/Hide menu
+            ToggleQuickMenu     //< Show/Hide exact menu
         }
 
         protected DebugMenuItem(string path, int order)
         {
             var pathOnly = DebugMenuTools.GetDirectoryName(path);
             label = DebugMenuTools.GetFileName(path);
-            menu = DebugMenu.RootDebugMenu.GetOrCreateMenu(pathOnly);
+            parentMenu = DebugMenuSystem.RootDebugMenu.GetOrCreateMenu(pathOnly);
             this.order = order;
             labelColor = Colors.ToggleLabelDisabled;
             valueColor = Colors.ToggleLabelDisabled;
-            menu.AddItem(this);
+            parentMenu.AddItem(this);
         }
 
-        protected DebugMenuItem(DebugMenu menu, string label, int order)
+        protected DebugMenuItem(DebugMenu parentMenu, string label, int order)
         {
             this.label = label;
-            this.menu = menu;
+            this.parentMenu = parentMenu;
             this.order = order;
             labelColor = Colors.ToggleLabelDisabled;
             valueColor = Colors.ToggleLabelDisabled;
-            menu?.AddItem(this);
+            parentMenu?.AddItem(this);
         }
 
-        public virtual void OnEvent(DebugMenuC sender, DebugMenu.EvenTag tag)
+        public virtual void OnEvent(EvenTag tag)
         {
             // override this method to make specific menu item
         }
@@ -84,14 +86,14 @@ namespace VARP.DebugMenus
         public DebugMenuItem Order(int order)
         {
             this.order = order;
-            menu.Sort();
+            parentMenu.Sort();
             return this;
         }
         
         public DebugMenuItem AddToMenu(DebugMenu menu)
         {
-            this.menu?.RemoveItem(this);
-            this.menu = menu;
+            parentMenu?.RemoveItem(this);
+            parentMenu = menu;
             menu.AddItem(this);
             return this;
         }

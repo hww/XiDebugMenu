@@ -53,12 +53,12 @@ namespace VARP.DebugMenus
         }
 
 
-        public static string RenderMenu(DebugMenuC sender, DebugMenu debugMenu, int selected,
+        public static string RenderMenu(DebugMenu debugMenu, int selected,
             MenuOptions options = MenuOptions.Default)
         {
             stringBuilder.Clear();
             // update texts and the width of the fields
-            debugMenu.SendToChildren(sender, DebugMenu.EvenTag.Render);
+            debugMenu.SendToChildren(DebugMenuItem.EvenTag.Render);
             var menuCount = debugMenu.Count;
 
             debugMenu.UpdateWidth(SPACE.Length);
@@ -112,12 +112,12 @@ namespace VARP.DebugMenus
             return stringBuilder.ToString();
         }
         
-        public static string RenderMenu_WithFrame(DebugMenuC sender, DebugMenu debugMenu, int selected,
+        public static string RenderMenu_WithFrame(DebugMenu debugMenu, int selected,
             MenuOptions options = MenuOptions.Default)
         {
             stringBuilder.Clear();
             // update texts and the width of the fields
-            debugMenu.SendToChildren(sender, DebugMenu.EvenTag.Render);
+            debugMenu.SendToChildren(DebugMenuItem.EvenTag.Render);
             var menuCount = debugMenu.Count;
 
             debugMenu.UpdateWidth(SPACE.Length);

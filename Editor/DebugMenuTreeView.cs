@@ -40,7 +40,7 @@ namespace VARP.DebugMenus
         protected override TreeViewItem BuildRoot ()
         {
             var root = new TreeViewItem      { id = 0, depth = -1, displayName = "Scene" };
-            var rootDebugMenu = DebugMenu.RootDebugMenu;
+            var rootDebugMenu = DebugMenuSystem.RootDebugMenu;
             var rootDebugTree = BuildTree(rootDebugMenu);
             root.AddChild(rootDebugTree);
             SetupDepthsFromParentsAndChildren(root);

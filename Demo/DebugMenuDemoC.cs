@@ -49,7 +49,7 @@ namespace VARP.DebugMenus.Demo
             new DebugMenu("Edit/Preferences/Extra Preferences", 30)
                 .OnOpen(menu => 
                 {
-                    new DebugMenuToggle("Toggle2", menu, () => toggleValue, value => toggleValue = value);
+                    new DebugMenuToggle(menu, "Toggle2", () => toggleValue, value => toggleValue = value);
                 })
                 .OnClose(menu =>
                 {

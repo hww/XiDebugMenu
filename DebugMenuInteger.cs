@@ -46,8 +46,8 @@ namespace VARP.DebugMenus
             Render();
         }
         
-        public DebugMenuInteger(DebugMenu menu, string path, Func<int> getter, Action<int> setter  = null, int order = 0)
-            : base(menu, path, order)
+        public DebugMenuInteger(DebugMenu parentMenu, string path, Func<int> getter, Action<int> setter  = null, int order = 0)
+            : base(parentMenu, path, order)
         {
             this.getter = getter;
             this.setter = setter;
@@ -57,18 +57,18 @@ namespace VARP.DebugMenus
             Render();
         }
         
-        public override void OnEvent(DebugMenuC sender, EvenTag tag)
+        public override void OnEvent(EvenTag tag)
         {
             switch (tag)
             {
                 case EvenTag.Render:
                     Render();
                     break;
-                case EvenTag.Inc:
+                case EvenTag.Right:
                     setter?.Invoke(getter() + step);
                     Render();
                     break;
-                case EvenTag.Dec:
+                case EvenTag.Left:
                     setter?.Invoke(getter() - step);
                     Render();
                     break;
