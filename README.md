@@ -57,8 +57,10 @@ For integer, floats and enum types creating new DebugMenuItem will capture curre
 - E show or hide menu without closing it
 - ESC close current menu and display previous, or hide menu if there are no more
 - W,S move previous and next menu item
-- A,D edit menu item
+- A,D edit menu item, open close submenu
 - R reset value to default
+- Shift-A,Shift-D edit menu item even if menu is closed
+- Shift-R reset value to default even if menu is closed
 
 ## Events
 
