@@ -48,7 +48,18 @@ namespace VARP.DebugMenus
                 if (Input.GetKeyDown(KeyCode.R))
                     return DebugMenuItem.EvenTag.Reset;
             }
-
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    if (Input.GetKeyDown(KeyCode.A))
+                        return DebugMenuItem.EvenTag.Left;
+                    if (Input.GetKeyDown(KeyCode.D))
+                        return DebugMenuItem.EvenTag.Right;
+                    if (Input.GetKeyDown(KeyCode.R))
+                        return DebugMenuItem.EvenTag.Reset;
+                }
+            }
             return DebugMenuItem.EvenTag.Null;
         }
     }

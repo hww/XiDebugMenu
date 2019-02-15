@@ -61,14 +61,17 @@ namespace VARP.DebugMenus
                 case EvenTag.Right:
                     setter(!getter());
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Left:
                     setter(!getter());
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Reset:
                     setter(defaultValue);
                     Render();
+                    OnModified();
                     break;
             }
         }
@@ -77,6 +80,13 @@ namespace VARP.DebugMenus
         {
             var val = getter();
             labelColor = val ? Colors.ToggleLabelEnabled : Colors.ToggleLabelDisabled;
+        }
+        
+        private void OnModified()
+        {
+            if (DebugMenuSystem.isVisible)
+                return;
+            DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color>");
         }
     }
 }

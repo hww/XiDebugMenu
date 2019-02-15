@@ -79,14 +79,17 @@ namespace VARP.DebugMenus
                 case EvenTag.Right:
                     setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) + step) / floatingPointScale);
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Left:
                     setter?.Invoke((float)(Math.Floor(getter() * floatingPointScale + 0.1f) - step) / floatingPointScale);
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Reset:
                     setter?.Invoke(defaultValue);
                     Render();
+                    OnModified();
                     break;
             }
         }
@@ -98,6 +101,13 @@ namespace VARP.DebugMenus
             value = val.ToString(format);
             valueColor = def ? Colors.ValueDefault : Colors.ValueModified;
             labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
+        }
+        
+        private void OnModified()
+        {
+            if (DebugMenuSystem.isVisible)
+                return;
+            DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color> <color={valueColor}>{value}</color>");   
         }
         
         public DebugMenuFloat Precision(int value)

@@ -38,7 +38,6 @@ namespace VARP.DebugMenus
 
         public int currentLine;
         public float autoRefreshPeriod;
-        public bool doRefresh;
         public int widthOfName;
         public int widthOfNameAnValue;
         public int widthOfValue;
@@ -47,6 +46,8 @@ namespace VARP.DebugMenus
         private Action<DebugMenu> onClose;
         private Action<DebugMenu> onOpen;
         private Action<DebugMenu> onClear;
+        private bool doRefresh;
+        private float doRefreshUpTo;
         
         // =============================================================================================================
         // Dimensions of menu
@@ -160,12 +161,27 @@ namespace VARP.DebugMenus
             itemsList.Clear();
             onClear?.Invoke(this);
         }
+
+        /// <summary>
+        /// Return true if menu has to be updated per frame
+        /// </summary>
+        public bool DoRefresh
+        {
+            get => doRefresh || Time.unscaledTime < doRefreshUpTo;
+            set => doRefresh = value;
+        }
+
         /// <summary>
         ///     Request refresh for this menu
         /// </summary>
         public void RequestRefresh()
         {
             doRefresh = true;
+        }
+        
+        public void RequestRefresh(float duration)
+        {
+            doRefreshUpTo = Mathf.Max(Time.unscaledTime + duration);
         }
         /// <summary>
         ///     Get menu string
@@ -257,21 +273,32 @@ namespace VARP.DebugMenus
         /// <param name="tag"></param>
         public override void OnEvent(EvenTag tag)
         {
+            var isVisible = DebugMenuSystem.isVisible;
+            var currentItem = GetCurrent();
             // do not send message to children, just do only what this instance need
             // update color or text
             switch (tag)
             {
                 case EvenTag.Right:
-                    if (GetCurrent() is DebugMenu submenu)
+
+                    if (currentItem is DebugMenu submenu && isVisible)
+                    {
                         DebugMenuSystem.OpenMenu(submenu);
+                    }
                     else
-                        GetCurrent()?.OnEvent( tag);
+                    {
+                        currentItem?.OnEvent(tag);
+                    }
                     return;
                 case EvenTag.Left:
-                    if (GetCurrent() is DebugMenu)
+                    if (currentItem is DebugMenu && isVisible)
+                    {
                         DebugMenuSystem.CloseMenu();
+                    }
                     else
-                        GetCurrent()?.OnEvent( tag);
+                    {
+                        currentItem?.OnEvent(tag);
+                    }
                     return;
                 case EvenTag.OpenMenu:
                     onOpen?.Invoke(this);
@@ -280,7 +307,8 @@ namespace VARP.DebugMenus
                     onClose?.Invoke(this);
                     return;
                 case EvenTag.Up:
-                    currentLine--;
+                    if (currentLine > 0) 
+                        currentLine--;
                     currentLine =  Math.Min(currentLine, Count - 1);
                     return;
                 case EvenTag.Down:

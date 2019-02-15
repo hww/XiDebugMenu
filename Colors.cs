@@ -26,11 +26,14 @@ namespace VARP.DebugMenus
 {
     public static class Colors
     {
-        public const string ValueDefault = "#bfffbf";
+        public const string ValueDefault = "#C9E3DB"; //bfffbf
         public const string ValueModified = "#ffff00";
         public const string LabelDefault = "#eeeeee";
         public const string LabelModified = "#ffff00";
         public const string ToggleLabelDisabled = "#eeeeee";
         public const string ToggleLabelEnabled = "#ffff01";
+        public const string ActionLabelDisabled = "#707070";
+        public const string ActionLabelEnabled = "#eeeeee";
+        public const string ActionLabelActivated = "#5AB190";
     }
 }

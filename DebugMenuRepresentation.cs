@@ -40,6 +40,8 @@ namespace VARP.DebugMenus
         [BoxGroup("Settings")]
         public int fontSize = 16;
 
+        private float hideTextAt;
+        
         // =============================================================================================================
         // Mono behaviour
         // =============================================================================================================
@@ -67,6 +69,11 @@ namespace VARP.DebugMenus
         void Update()
         {
             DebugMenuSystem.Update();
+            if (hideTextAt > 0 && Time.unscaledTime > hideTextAt)
+            {
+                hideTextAt = -1f;
+                SetVisible(false);
+            }
         }
 
         // =============================================================================================================
@@ -81,7 +88,15 @@ namespace VARP.DebugMenus
         public void SetText(string text)
         {
             menuText.text = text;
+            hideTextAt = -1;
         }
 
+        public void FlashText(string text)
+        {
+            menuText.text = text;
+            hideTextAt = Time.unscaledTime + 1.3f;
+            SetVisible(true);
+        }
+        
     }
 }

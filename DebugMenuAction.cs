@@ -23,18 +23,24 @@
 // =============================================================================
 
 using System;
+using UnityEngine;
 
 namespace VARP.DebugMenus
 {
     public class DebugMenuAction : DebugMenuItem
     {
+        private const float ACTION_HIGHLIGHT_TIME = 0.9f;
+        private const float ACTION_MENU_REFRESH_DELAY = 1.0f;
+        
         private readonly Action<DebugMenuAction, EvenTag> action;
-
+        private float lastInvokedAt;
+        
         public DebugMenuAction(string path, Action<DebugMenuAction, EvenTag> action, int order = 0)
             : base(path, order)
         {
             this.action = action;
             value = null;    // do not have value, wil display it by color
+            lastInvokedAt = -9999;
         }
         
         public DebugMenuAction(DebugMenu parentMenu, string label, Action<DebugMenuAction, EvenTag> action = null, int order = 0)
@@ -42,6 +48,7 @@ namespace VARP.DebugMenus
         {
             this.action = action;
             value = null;    // do not have value, wil display it by color
+            lastInvokedAt = -9999;
         }
 
         
@@ -53,10 +60,22 @@ namespace VARP.DebugMenus
                     Render();
                     break;
                 case EvenTag.Left:
-                    action(this, tag);
+                    if (action != null)
+                    {
+                        action(this, tag);
+                        lastInvokedAt = Time.unscaledTime;
+                        Render();
+                        OnModified();
+                    }
                     break;
                 case EvenTag.Right:
-                    action(this, tag);
+                    if (action != null)
+                    {
+                        action(this, tag);
+                        lastInvokedAt = Time.unscaledTime;
+                        Render();
+                        OnModified();
+                    }
                     break;
                 case EvenTag.Reset:
                     action(this, tag);
@@ -66,7 +85,24 @@ namespace VARP.DebugMenus
 
         private void Render()
         {
-            labelColor = action != null ? Colors.ToggleLabelDisabled : Colors.LabelModified;
+            if (action == null)
+            {
+                labelColor = Colors.ActionLabelDisabled ; 
+            }
+            else
+            {
+                var isInvoked = lastInvokedAt + ACTION_HIGHLIGHT_TIME > Time.unscaledTime;
+                labelColor = isInvoked ? Colors.ActionLabelActivated : Colors.ActionLabelEnabled ;
+
+            }
+        }
+
+        private void OnModified()
+        {
+            if (DebugMenuSystem.isVisible)
+                parentMenu.RequestRefresh(ACTION_MENU_REFRESH_DELAY);
+            else
+                DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color> <color={valueColor}>{value}</color>");        
         }
     }
     

@@ -28,7 +28,6 @@ namespace VARP.DebugMenus
 {
     public class DebugMenuString : DebugMenuItem
     {
-        private const string DEFAULT_FORMAT = "0";
         private readonly Func<string> getter;
         private readonly Action<string> setter;
         
@@ -37,6 +36,8 @@ namespace VARP.DebugMenus
         {
             this.getter = getter;
             this.setter = setter;
+            valueColor = Colors.ValueDefault;
+            labelColor = Colors.LabelDefault;
             Render();
         }
         
@@ -45,6 +46,8 @@ namespace VARP.DebugMenus
         {
             this.getter = getter;
             this.setter = setter;
+            valueColor = Colors.ValueDefault;
+            labelColor = Colors.LabelDefault;
             Render();
         }
         
@@ -62,8 +65,14 @@ namespace VARP.DebugMenus
         {
             if (getter!=null)
                 value = getter();
-            valueColor = Colors.ValueDefault;
-            labelColor = Colors.LabelDefault;
+
+        }
+        
+        private void OnModified()
+        {
+            if (DebugMenuSystem.isVisible)
+                return;
+            DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color> <color={valueColor}>{value}</color>");
         }
         
         public DebugMenuString Value(string value)

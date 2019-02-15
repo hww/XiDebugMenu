@@ -48,6 +48,14 @@ namespace VARP.DebugMenus
             ToggleQuickMenu     //< Show/Hide exact menu
         }
 
+        public enum EventResult
+        {
+            Null,
+            Reset,
+            Modified,
+            Called,
+        }
+        
         protected DebugMenuItem(string path, int order)
         {
             var pathOnly = DebugMenuTools.GetDirectoryName(path);

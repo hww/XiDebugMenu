@@ -43,7 +43,7 @@ namespace VARP.DebugMenus
         {
 
             // Refresh menu time to time if autoRefreshPeriod is more than zero
-            if (autoRefresh && Time.time > autoRefreshAt)
+            if (autoRefresh && Time.unscaledTime > autoRefreshAt)
                 currentMenu.RequestRefresh();
 
             var evt = controller.GetEvet();
@@ -53,7 +53,7 @@ namespace VARP.DebugMenus
             if (currentMenu == null)
                 return;
             
-            if (currentMenu.doRefresh)
+            if (currentMenu.DoRefresh)
                 Render();
         }
         
@@ -90,8 +90,8 @@ namespace VARP.DebugMenus
                 if (currentMenu != null)
                 {
                     currentMenu.OnEvent(tag);
-
-                    Render();
+                    if (isVisible)
+                        Render();
                 }
             }
         }
@@ -140,12 +140,20 @@ namespace VARP.DebugMenus
         {
             if (currentMenu == null)
                 return;
-            currentMenu.doRefresh = false;
+            currentMenu.DoRefresh = false;
             autoRefresh = currentMenu.autoRefreshPeriod > 0;
-            autoRefreshAt = Time.time + currentMenu.autoRefreshPeriod;
+            autoRefreshAt = Time.unscaledTime + currentMenu.autoRefreshPeriod;
             representation.SetText(MenuTextRenderer.RenderMenu(currentMenu, currentMenu.currentLine));
         }
 
+        // =============================================================================================================
+        // Representation 
+        // =============================================================================================================
 
+        public static void FlashText(string text)
+        {
+            if (isVisible) return;
+            representation.FlashText(text);
+        }
     }
 }

@@ -62,14 +62,17 @@ namespace VARP.DebugMenus
                 case EvenTag.Right:
                     setter?.Invoke(EnumExtensions.Next(getter()));
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Left:
                     setter?.Invoke(EnumExtensions.Previous(getter()));
                     Render();
+                    OnModified();
                     break;
                 case EvenTag.Reset:
                     setter?.Invoke(defaultValue);
                     Render();
+                    OnModified();
                     break;
             }
         }
@@ -83,6 +86,13 @@ namespace VARP.DebugMenus
             labelColor = def ? Colors.LabelDefault : Colors.LabelModified;
         }
 
+        private void OnModified()
+        {
+            if (DebugMenuSystem.isVisible)
+                return;
+            DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color> <color={valueColor}>{value}</color>");     
+        }
+        
         public DebugMenuEnum<T> Default(T value)
         {
             defaultValue = value;
