@@ -57,8 +57,10 @@ For integer, floats and enum types creating new DebugMenuItem will capture curre
 - E show or hide menu without closing it
 - ESC close current menu and display previous, or hide menu if there are no more
 - W,S move previous and next menu item
-- A,D edit menu item
+- A,D edit menu item, open close submenu
 - R reset value to default
+- Shift-A,Shift-D edit menu item even if menu is closed
+- Shift-R reset value to default even if menu is closed
 
 ## Events
 
@@ -69,10 +71,10 @@ public enum EvenTag
 {
     Null,               //< Nothing 
     Render,             //< Render item, update label, value and colors
-    Dec,                //< Decrease value or call action
-    Inc,                //< Increase value or call action
-    Prev,               //< Go to previous item 
-    Next,               //< Go to next item
+    Left,               //< Decrease value or call action
+    Right,              //< Increase value or call action
+    Up,                 //< Go to previous item 
+    Down,               //< Go to next item
     Reset,              //< Reset value to default
     OpenMenu,           //< When menu open    
     CloseMenu           //< When menu closed
@@ -86,11 +88,11 @@ The action code can update the item's fields, and differently response for event
 new DebugMenuAction("Edit/Preferences/Action", (item,tag) => { 
         switch (tag)
         {
-        case EventTag.Inc:
-           item.value = "Inc";
+        case EventTag.Right:
+           item.value = "Increment";
            break;
-        case EventTag.Dec:
-           item.value = "Dec";
+        case EventTag.Left:
+           item.value = "Decrement";
            break;
         ...
         }
@@ -132,7 +134,7 @@ For integers and floats: The _step_ field is a step for _Inc_ and _Dec_ evens.  
 
 **For floats** The _precision_ field is number of digits after period. For example _increment=5_ and _precision=2_ will make increment step 0.05
 
-## Othr Syntax Sugar
+## Other Syntax Sugar
 
 ```C#
 // For DebugMenu class
