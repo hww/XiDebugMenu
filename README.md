@@ -1,6 +1,6 @@
 # Debug Menu
 
-*N.B.* A better version of this program, developed from scratch, can be found at [Iam1337/extDebug](https://github.com/Iam1337/extDebug) Consider using that, instead. 
+**N.B.** A better version of this program, developed from scratch, can be found at [Iam1337/extDebug](https://github.com/Iam1337/extDebug) Consider using that, instead. 
 
 It is easy to use, lightweight library initially forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed.
 
