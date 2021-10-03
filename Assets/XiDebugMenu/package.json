@@ -1,0 +1,23 @@
+{
+  "name": "com.hww.XiDebugMenu",
+  "displayName": "XiDebugMenu",
+  "version": "1.0.0",
+  "unity": "2021.1",
+  "description": "XiDebugMenu is a debug menu for Unity.",
+  "license": "MIT",
+  "author": "hww <valery.hww@gmail.com> (https://github.com/hww)",
+  "keywords": [
+    "debug",
+    "menu"
+  ],
+  "dependencies": {
+    "com.hww.XiCore": "1.0.0",
+    "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
+  },
+  "category": "Debug",
+  "samples": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hww/XiDebugMenu.git#upm"
+  }
+}

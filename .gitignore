@@ -1,1 +1,66 @@
-*.meta
+# extDebug .gitignore file 2021
+
+# -------
+# FOLDERS
+# -------
+
+# Unity
+
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]serSettings/
+/Assets/AssetStoreTools*
+AssetBundles/
+
+# TextMeshPro Essentials
+Assets/TextMesh Pro.meta
+Assets/TextMesh Pro/
+
+# Visual Studio
+
+ExportedObj/
+
+# -----
+# FILES
+# -----
+
+# Unity
+
+Assembly-CSharp-Editor-vs.csproj
+Assembly-CSharp-Editor.csproj
+Assembly-CSharp-firstpass-vs.csproj
+Assembly-CSharp-firstpass.csproj
+Assembly-CSharp-vs.csproj
+Assembly-CSharp.csproj
+
+# Visual Studio / MonoDevelop
+
+*.sln
+*.svd
+*.userprefs
+*.pidb
+*.suo
+*.user
+*.unityproj
+*.booproj
+*.csproj
+.vscode/
+.vs/
+.idea/
+.vsconfig
+
+# OS generated
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+Thumbs.db.meta
