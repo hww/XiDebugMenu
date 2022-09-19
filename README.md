@@ -1,4 +1,5 @@
-# XiDebugMenu _The elegant and easy to use debug menu for Unity 3D_
+# XiDebugMenu 
+## _The elegant and easy to use debug menu for Unity 3D_
 
 ![](https://img.shields.io/badge/unity-2018.3%20or%20later-green.svg)
 [![⚙ Build and Release](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml/badge.svg)](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml)
