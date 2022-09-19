@@ -14,7 +14,7 @@ An easy to use debug menu with little memory requirement. Influenced by the Emac
 
 ## Alternative
 
-This project designed for simplicity for example it has limited amout of types for menu items. If you need more then consider to use the advanced version [Iam1337/extDebug](https://github.com/Iam1337/extDebug). It has much more features and I believe you will have a professional support from autor.
+This project designed for simplicity for example it has limited amout of types for menu items. If you need more then consider to use the advanced version [Iam1337/extDebug](https://github.com/Iam1337/extDebug). It has much more features and I believe you will have a professional support from autor [Iam1337](https://github.com/Iam1337).
 
 ## Install
 
