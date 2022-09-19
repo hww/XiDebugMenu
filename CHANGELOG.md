@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/hww/XiDebugMenu/compare/v1.0.1...v1.0.2) (2022-09-19)
+
+
+### Bug Fixes
+
+* **CI:** update CI config ([f969a8a](https://github.com/hww/XiDebugMenu/commit/f969a8af08f81a4360bbd3c111541e4269607f6f))
+
 ## [1.0.1](https://github.com/hww/XiDebugMenu/compare/v1.0.0...v1.0.1) (2021-10-08)
 
 
