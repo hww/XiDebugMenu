@@ -19,12 +19,12 @@ An easy to use debug menu with little memory requirement. Influenced by the Emac
 The package is available on the openupm registry. You can install it via openupm-cli.
 
 ```bash
-openupm add com.hww.xicore
+openupm add com.hww.xidebugmenu
 ```
 You can also install via git url by adding this entry in your manifest.json
 
 ```bash
-"com.hww.xicore": "https://github.com/hww/XiCore.git#upm"
+"com.hww.xidebugmenu": "https://github.com/hww/XiDebugMenu.git#upm"
 ```
 ## Usage
 
