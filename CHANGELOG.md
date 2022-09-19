@@ -1,3 +1,11 @@
+## [1.0.3](https://github.com/hww/XiDebugMenu/compare/v1.0.2...v1.0.3) (2022-09-19)
+
+
+### Bug Fixes
+
+* **config:** Config fixed ([37775db](https://github.com/hww/XiDebugMenu/commit/37775dbb70819764cbce63f1986f4d459f6f846b))
+* **config:** Config fixed ([3e59b5b](https://github.com/hww/XiDebugMenu/commit/3e59b5bbeb9d9281fe6607e2e913651b0f232c8b))
+
 ## [1.0.2](https://github.com/hww/XiDebugMenu/compare/v1.0.1...v1.0.2) (2022-09-19)
 
 
