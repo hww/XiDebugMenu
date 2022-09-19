@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.dbrizov.naughtyattributes": {
+      "version": "https://github.com/dbrizov/NaughtyAttributes.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8a8fa5a9659a6d63f196391c71e06c4286c8acd7"
+    },
+    "com.hww.xicore": {
+      "version": "https://github.com/hww/XiCore.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "463b7464565248deedd3d2b0253430896b5f7651"
+    },
     "com.unity.collab-proxy": {
       "version": "1.17.2",
       "depth": 0,
