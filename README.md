@@ -8,11 +8,13 @@
 
 It is easy to use, lightweight library initially forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed by [hww](https://github.com/hww)
 
-**N.B.** Consider to use the advanced version [Iam1337/extDebug](https://github.com/Iam1337/extDebug). 
-
 ## Introduction
 
 An easy to use debug menu with little memory requirement. Influenced by the Emacs menu system. The basic concept is the minimum number of lines to add items to the menu (one line per option) and the procedural generation of menu items. 
+
+## Advanced Alternative
+
+This project designed for simplicity for example it has limited amout of types for menu items. If you need more then consider to use the advanced version [Iam1337/extDebug](https://github.com/Iam1337/extDebug). 
 
 ## Install
 
