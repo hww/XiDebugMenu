@@ -1,4 +1,4 @@
-# Debug Menu
+# XiDebugMenu _The elegant and easy to use debug menu for Unity 3D_
 
 ![](https://img.shields.io/badge/unity-2018.3%20or%20later-green.svg)
 [![⚙ Build and Release](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml/badge.svg)](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml)
@@ -12,7 +12,23 @@ It is easy to use, lightweight library initially forked from [wataru-ito/DebugMe
 
 ## Introduction
 
-An easy to use debug menu with little memory requirement. Influenced by the Emacs menu system. The basic concept is the minimum number of lines to add items to the menu (one line per option) and the procedural generation of menu items. A demonstration of how to use it is below:
+An easy to use debug menu with little memory requirement. Influenced by the Emacs menu system. The basic concept is the minimum number of lines to add items to the menu (one line per option) and the procedural generation of menu items. 
+
+## Install
+
+The package is available on the openupm registry. You can install it via openupm-cli.
+
+```bash
+openupm add com.hww.xicore
+```
+You can also install via git url by adding this entry in your manifest.json
+
+```bash
+"com.hww.xicore": "https://github.com/hww/XiCore.git#upm"
+```
+## Usage
+
+A demonstration of how to use it is below:
 
 ```C#
 
