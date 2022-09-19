@@ -1,13 +1,14 @@
 # Debug Menu
 
-![](https://img.shields.io/badge/unity-2021.1%20or%20later-green.svg)
-[![⚙ Build and Release](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml/badge.svg)](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml)
-[![openupm](https://img.shields.io/npm/v/com.hww.XiDebugMenu?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.hww.XiDebugMenu/)
-[![](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/hww/XiDebugMenu/blob/master/LICENSE)
+It is easy to use, lightweight library initially forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed by [hww](https://github.com/hww)
 
 **N.B.** A better version of this program, developed from scratch, can be found at [Iam1337/extDebug](https://github.com/Iam1337/extDebug) Consider using that, instead. 
 
-It is easy to use, lightweight library initially forked from [wataru-ito/DebugMenu](https://github.com/wataru-ito/DebugMenu) but deeply modifyed.
+![](https://img.shields.io/badge/unity-2018.3%20or%20later-green.svg)
+[![⚙ Build and Release](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml/badge.svg)](https://github.com/hww/XiDebugMenu/actions/workflows/ci.yml)
+[![openupm](https://img.shields.io/npm/v/com.hww.xidebugmenu?label=openupm&registry_uri=https://package.openupm.com)](https://openupm.com/packages/com.hww.xidebugmenu/)
+[![](https://img.shields.io/github/license/hww/XiDebugMenu.svg)](https://github.com/hww/XiDebugMenu/blob/master/LICENSE)
+[![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 The library renders as text, in game menu.  
 
