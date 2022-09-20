@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/hww/XiDebugMenu/compare/v1.0.4...v1.0.5) (2022-09-20)
+
+
+### Bug Fixes
+
+* **font:** Fixed font width ([f21924d](https://github.com/hww/XiDebugMenu/commit/f21924d9d5b8fc791ca33aba3a9dcae384e4bc47))
+
 ## [1.0.4](https://github.com/hww/XiDebugMenu/compare/v1.0.3...v1.0.4) (2022-09-20)
 
 
