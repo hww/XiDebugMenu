@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/hww/XiDebugMenu/compare/v1.0.3...v1.0.4) (2022-09-20)
+
+
+### Bug Fixes
+
+* **files:** Added meta files ([2f44db2](https://github.com/hww/XiDebugMenu/commit/2f44db2822c8fe141803a357073e073ed63914f1))
+
 ## [1.0.3](https://github.com/hww/XiDebugMenu/compare/v1.0.2...v1.0.3) (2022-09-19)
 
 
