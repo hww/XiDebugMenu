@@ -43,9 +43,9 @@ namespace XiDebugMenu
         public int widthOfValue;
         
         private readonly List<DebugMenuItem> itemsList;
-        private Action<DebugMenu> onClose = null
-        private Action<DebugMenu> onOpen = null;
-        private Action<DebugMenu> onClear = null;
+        private Action<DebugMenu> onClose;
+        private Action<DebugMenu> onOpen;
+        private Action<DebugMenu> onClear;
         private bool doRefresh;
         private float doRefreshUpTo;
         
@@ -371,6 +371,12 @@ namespace XiDebugMenu
         public DebugMenu OnClose(Action<DebugMenu> onClose)
         {
             this.onClose = onClose;
+            return this;
+        }
+
+        public DebugMenu OnClear(Action<DebugMenu> onClear)
+        {
+            this.onClear = onClear;
             return this;
         }
 
