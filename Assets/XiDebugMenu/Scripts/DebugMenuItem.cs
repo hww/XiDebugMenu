@@ -34,7 +34,7 @@ namespace XiDebugMenu
         public string value;             //< at right side of menu item
         public string labelColor;        //< label color
         public string valueColor;        //< value color
-        
+
         public enum EvenTag
         {
             Null,               //< Nothing 
@@ -57,7 +57,7 @@ namespace XiDebugMenu
             Modified,
             Called,
         }
-        
+
         protected DebugMenuItem(string path, int order)
         {
             var pathOnly = DebugMenuTools.GetDirectoryName(path);
@@ -91,20 +91,20 @@ namespace XiDebugMenu
             get => Input.GetKey(KeyCode.LeftShift) ? (Input.GetKey(KeyCode.LeftControl) ? 100 : 10) : 1;
         }
 
-    // =============================================================================================================
-    // Syntax sugar (Can be removed)
-    // =============================================================================================================
+        // =============================================================================================================
+        // Syntax sugar (Can be removed)
+        // =============================================================================================================
 
-    /// <summary>
-    /// Menu will group items with equal or +1 difference to single block
-    /// </summary>
-    public DebugMenuItem Order(int order)
+        /// <summary>
+        /// Menu will group items with equal or +1 difference to single block
+        /// </summary>
+        public DebugMenuItem Order(int order)
         {
             this.order = order;
             parentMenu.Sort();
             return this;
         }
-        
+
         public DebugMenuItem AddToMenu(DebugMenu menu)
         {
             parentMenu?.RemoveItem(this);
@@ -113,23 +113,23 @@ namespace XiDebugMenu
             return this;
         }
 
-        public DebugMenuItem Value(string value)
+        public virtual DebugMenuItem Value(string value)
         {
             this.value = value;
             return this;
         }
-        
+
         public DebugMenuItem LabelColor(string value)
         {
             labelColor = value;
             return this;
         }
-        
+
         public DebugMenuItem ValueColor(string value)
         {
             valueColor = value;
             return this;
         }
-        
+
     }
 }

@@ -74,10 +74,5 @@ namespace XiDebugMenu
             DebugMenuSystem.FlashText($"<color={labelColor}>{label}</color> <color={valueColor}>{value}</color>");
         }
         
-        public DebugMenutring Value(string value)
-        {
-            this.value = value;
-            return this;
-        }
     }
 }
