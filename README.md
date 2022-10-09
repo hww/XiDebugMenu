@@ -17,6 +17,8 @@ An easy to use debug menu with little memory requirement. Influenced by the Emac
 
 This project designed for simplicity, for example it has limited amout of types for menu items. If you need more then consider to use the advanced version [extDebug](https://github.com/Iam1337/extDebug). It has much more features and I believe you will have a professional support from autor [Iam1337](https://github.com/Iam1337).
 
+The other alternative is my advanced menu [XiKeyboard](https://github.com/hww/XiKeyboard) with advanced keystrokes systems. 
+
 ## Install
 
 The package is available on the openupm registry. You can install it via openupm-cli.
