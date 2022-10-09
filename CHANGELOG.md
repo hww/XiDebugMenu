@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/hww/XiDebugMenu/compare/v1.0.5...v1.0.6) (2022-10-09)
+
+
+### Bug Fixes
+
+* **code:** Minor changes ([6d65cfc](https://github.com/hww/XiDebugMenu/commit/6d65cfc7e083d2cb8f5a3d67e161517a0ae43414))
+
 ## [1.0.5](https://github.com/hww/XiDebugMenu/compare/v1.0.4...v1.0.5) (2022-09-20)
 
 
