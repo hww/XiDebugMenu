@@ -65,7 +65,6 @@ namespace XiDebugMenu
             
             var lineWidth = debugMenu.widthOfNameAnValue + SUFFIX.Length + PREFIX.Length;
 
-            string singleLine = null;
             string justLine = new string(CHAR_LIGHT_HORIZONTAL, lineWidth);
             
             

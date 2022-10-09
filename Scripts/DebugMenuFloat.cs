@@ -25,7 +25,6 @@
 using System;
 using UnityEngine;
 using XiCore;
-using XiUnityTools;
 
 namespace XiDebugMenu
 {
