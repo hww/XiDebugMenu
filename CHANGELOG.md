@@ -1,3 +1,38 @@
+## [1.0.8](https://github.com/hww/XiDebugMenu/compare/v1.0.7...v1.0.8) (2022-10-09)
+
+
+### Bug Fixes
+
+* **code:** Minor changes ([696ba20](https://github.com/hww/XiDebugMenu/commit/696ba20412016f8a671584a8afee7a261e9ed8b0))
+
+## [1.0.7](https://github.com/hww/XiDebugMenu/compare/v1.0.6...v1.0.7) (2022-10-09)
+
+
+### Bug Fixes
+
+* **code:** Minor changes ([21bf0ca](https://github.com/hww/XiDebugMenu/commit/21bf0ca2af2325a5d780555ae5c8a04a8d59e194))
+
+## [1.0.6](https://github.com/hww/XiDebugMenu/compare/v1.0.5...v1.0.6) (2022-10-09)
+
+
+### Bug Fixes
+
+* **code:** Minor changes ([6d65cfc](https://github.com/hww/XiDebugMenu/commit/6d65cfc7e083d2cb8f5a3d67e161517a0ae43414))
+
+## [1.0.5](https://github.com/hww/XiDebugMenu/compare/v1.0.4...v1.0.5) (2022-09-20)
+
+
+### Bug Fixes
+
+* **font:** Fixed font width ([f21924d](https://github.com/hww/XiDebugMenu/commit/f21924d9d5b8fc791ca33aba3a9dcae384e4bc47))
+
+## [1.0.4](https://github.com/hww/XiDebugMenu/compare/v1.0.3...v1.0.4) (2022-09-20)
+
+
+### Bug Fixes
+
+* **files:** Added meta files ([2f44db2](https://github.com/hww/XiDebugMenu/commit/2f44db2822c8fe141803a357073e073ed63914f1))
+
 ## [1.0.3](https://github.com/hww/XiDebugMenu/compare/v1.0.2...v1.0.3) (2022-09-19)
 
 
