@@ -24,7 +24,7 @@
 
 using System;
 using UnityEngine;
-using XiCore;
+using XiCore.UnityExtensions;
 
 namespace XiDebugMenu
 {
