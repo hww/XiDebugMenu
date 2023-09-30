@@ -1,7 +1,7 @@
 {
   "name": "com.hww.xidebugmenu",
   "displayName": "XiDebugMenu",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "unity": "2021.1",
   "description": "XiDebugMenu is a debug menu for Unity.",
   "license": "MIT",
