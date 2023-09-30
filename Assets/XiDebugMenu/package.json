@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "com.hww.xicore": "https://github.com/hww/XiCore.git#upm",
-    "com.dbrizov.naughtyattributes": "https://github.com/dbrizov/NaughtyAttributes.git#upm"
+
   },
   "category": "Debug",
   "samples": [],

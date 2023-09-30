@@ -35,6 +35,7 @@ namespace XiDebugMenu
         public Transform backgroundTransform;
         [Header("Settings")]
         public int fontSize = 16;
+        public bool testFlashText;
 
         private float hideTextAt;
 
@@ -64,6 +65,11 @@ namespace XiDebugMenu
 
         void Update()
         {
+            if (testFlashText)
+            {
+                testFlashText = false;
+                TestFlashText();
+            }
             DebugMenuSystem.Update();
             if (hideTextAt > 0 && Time.unscaledTime > hideTextAt)
             {
@@ -93,8 +99,8 @@ namespace XiDebugMenu
             hideTextAt = Time.unscaledTime + 2.0f;
             SetVisible(true);
         }
-        [NaughtyAttributes.ButtonAttribute()]
-        private void TestFlashText()
+   
+        public void TestFlashText()
         {
             FlashText("Test text");
         }
